@@ -1,0 +1,164 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+{% block title %}{{ ProCategory.title }}{% endblock %}
+{% set labelKeyWords = ProCategory.labelKeyWord|split('+') %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+      <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/articles/' ~  ProCategory.smallPic))}}" />
+    <meta name="description" content=" {{ ProCategory.descriptionSeo |striptags|raw|slice(0, 150)}}">
+    <meta name="keywords" content="{{ ProCategory.name  }}, {{ ProCategory.title  }}| {% for labelKeyWord in labelKeyWords %} {{ labelKeyWord }} | {% endfor %} ">
+    <link rel="canonical" href="https://sabarico.com/CatProduct/{{ ProCategory.id }}/{{ ProCategory.urlSlug }}" />
+
+    <script type="application/ld+json">
+        {"@context":"http://schema.org",
+            "@type":"BreadcrumbList",
+            "itemListElement":[{"@type":"ListItem",
+                "position":1,
+                "item":{"@id":"{{ url('mainPageIndex') }}",
+                    "name":"صفحه اصلی مجله زیبایی صبا ریکو"
+                }},
+                {"@type":"ListItem"
+                ,"position":2,
+                    "item":{"@id":"{{ url('ProductList') }}",
+                        "name":"لیست محصولات مجله زیبایی صبا ریکو"
+                    }},
+                {"@type":"ListItem",
+                    "position":4,
+                    "item":{"@id":"{{ url('ProductCategoryDetails',{'id':ProCategory.id,'slug':ProCategory.urlSlug}) }}",
+                        "name":"{{ ProCategory.title|striptags|raw }} "
+                    }}
+            ]}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    <div class="d-flex text-right flex-direction-r fontSize08em bg-gary">
+        <div class="directionRtl pr-5">
+            <span>
+                <a href="{{ url('mainPageIndex') }}" class="text-NavyBlue" title="صفحه اصلی مجله زیبایی صبا ریکو">صفحه اصلی</a>
+            </span>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <span class="color-red">
+                <a href="{{ url('ProductList') }}" class="text-NavyBlue" title="لیست محصولات مجله زیبایی صبا ریکو">لیست محصولات </a>
+            </span>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <a href="{{ url('ProductCategoryDetails',{'id':ProCategory.id,'slug':ProCategory.urlSlug}) }}" class="text-NavyBlue" title="{{ ProCategory.title }}">{{ ProCategory.name }} </a>
+            <span class=""> > </span>
+        </div>
+    </div>
+<div class="container mt-15">
+    <div class="row  text-right flex-direction-r">
+        <div class="col-9 card-details m-15-990 ">
+            <div class="card  mrl-10 marginAuto450Product directionRtl">
+                <button on="tap:myAmpList.refresh" class="refresh-Btn">به روز رسانی </button>
+                <amp-list
+                            id="myAmpList"
+                            reset-on-refresh
+                            layout="fixed-height"
+                            height="600"
+                            src="https://www.sabarico.com/ListDetailsCategoryProduct/jsonFile/{{ ProCategory.id }}"
+                            binding="no">
+
+                            <template type="amp-mustache">
+                                <div class="col-4 panel-list-product justify-content-end border-b-l">
+                                    <div class="prl-10">
+                                        <div class="">
+                                            <a href="{{ '{{ url }}' }}" title="{{ '{{ title }}' }}">
+                                            <amp-img class="imageEffectHover" width="150" height="120" layout="responsive"
+                                                     alt="{{ '{{ title }}' }}" title="{{ '{{ name }}' }}"
+                                                     src="{{ '{{ smallPic }}' }}"></amp-img>
+                                            </a>
+                                        </div>
+                                        <div class="fontSize08em directionRtl  ">
+                                            <div class="text-justify directionRtl lineHeight19em ">
+                                                <h3 class="panelTitleProductList">
+                                                    {{ '{{ name }}' }}
+                                                </h3>
+
+                                                <div class="panelPriceProductList ">
+                                                    <div class="justify-content-between d-flex">
+                                                        <div>
+                                                            <span>قیمت :</span>
+                                                            <span class="panelPriceProduct">{{ '{{ price }}' }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="discountPrice">
+                                                                {{ '{{ discount }}' }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                    </amp-list>
+            </div>
+        </div>
+        <div class="col-3 card-details p-rl-451 ">
+            <div class="row">
+                {{ render(controller('App\\Controller\\AppPanel\\PanelProductController::panelRightSuggestedProductAction' )) }}
+                {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastArticleAction' )) }}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelBottomLastCategoryArticle' )) }}
+
+
+<amp-animation id="hideAnim"
+               layout="nodisplay">
+    <script type="application/json">
+        {
+            "duration": "200ms",
+            "fill": "both",
+            "iterations": "1",
+            "direction": "alternate",
+            "animations": [{
+                "selector": "#scrollToTopButton",
+                "keyframes": [{
+                    "opacity": "0",
+                    "visibility": "hidden"
+                }]
+            }]
+        }
+    </script>
+</amp-animation>
+<amp-animation id="showAnim"
+               layout="nodisplay">
+    <script type="application/json">
+        {
+            "duration": "200ms",
+            "fill": "both",
+            "iterations": "1",
+            "direction": "alternate",
+            "animations": [{
+                "selector": "#scrollToTopButton",
+                "keyframes": [{
+                    "opacity": "1",
+                    "visibility": "visible"
+                }]
+            }]
+        }
+    </script>
+</amp-animation>
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+{% endblock %}

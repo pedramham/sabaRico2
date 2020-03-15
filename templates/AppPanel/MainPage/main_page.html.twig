@@ -1,0 +1,97 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+  {% block javascripts %}
+      {{ parent() }}
+
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <link rel="canonical" href="https://sabarico.com" />
+
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::panelLastArticleCategoryArticleAction')) }}
+
+
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::panelLastProductAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::panelNewsCategoryAction')) }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::panelLastServiceAction')) }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::panelLastContentAction')) }}
+
+
+
+
+
+
+
+
+
+    <amp-animation id="hideAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "0",
+                        "visibility": "hidden"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+    <amp-animation id="showAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "1",
+                        "visibility": "visible"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+
+    <div class="container pt-40 pb-40">
+        <div class="d-flex mr-10 justify-content-between flexDirection alignItemsCenter">
+            <div class="btnOutInfo p-rl-15-450">
+                <strong class="text-dark">گالری عکس</strong>
+            </div>
+
+        </div>
+        <div class="row alignItemsCenter p-15">
+
+            <amp-carousel height="300" layout="fixed-height" type="carousel" lightbox id="carousel-with-lightbox">
+                <amp-img src="https://www.sabarico.com/uploads/images/extension-eyelash/extension-eyelash-sabaRico-2019-2.jpg" width="400" height="300" title="دوره آموزشی اکستنشن مژه" alt="نمونه کار های اکستشن مژه صبا شعبانی"></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/extension-eyelash/extension-eyelash-sabaRico-2019.jpg" width="400" height="300"  title="دوره آموزشی اکستنشن مژه" alt="صبا شعبانی آموزش اکستشن مژه در تهران "></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/extension-eyelash/extension-eyelash-valium-1.jpg" width="400" height="300" title="آموزش اکستشن مژه در تهران " alt="آموزش اکستشن مژه در تهران "></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/hairDyeHighlight/hair-dye-highlight-sabaShabani.webp" width="400" height="300" title="صبا شعبانی رنگ و های لایت مو" alt="صبا شعبانی رنگ و های لایت مو"></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/hairDyeHighlight/hair-dye-highlight-sabaShabani-1.webp" width="400" height="300" title="آموزش رنگ و هایلایت مو " alt="آموزش رنگ و هایلایت مو "></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/hairDyeHighlight/hair-dye-highlight-sabaShabani-3.webp" width="400" height="300" title="اموزش رنگ مو هایلایت مو" alt="اموزش رنگ مو هایلایت مو"></amp-img>
+                <amp-img src="https://www.sabarico.com/uploads/images/hairDyeHighlight/hair-dye-highlight-sabaShabani-12.webp" width="400" height="300" title="کلاس آموزش های لایت مو" alt="کلاس آموزش های لایت مو"></amp-img>
+            </amp-carousel>
+
+
+
+
+        </div>
+    </div>
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+
+{% endblock %}

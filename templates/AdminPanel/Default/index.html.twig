@@ -1,0 +1,52 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+{% endblock %}
+ {% block body %}
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h2>پنا بازی های رایانه ای </h2>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row">
+                     <div class="col-md-3 col-sm-6 col-xs-6">
+                         <div class="panel panel-back noti-box">
+                             <span class="icon-box bg-color-pink-back set-icon">
+                                 <i class="fa fa-users"></i>
+                             </span>
+                             <div class="text-box" >
+                                 <p class="text-muted"><a class="text-href-maine"  href="">کاربران</a></p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-3 col-sm-6 col-xs-6">
+                         <div class="panel panel-back noti-box">
+                             <span class="icon-box bg-color-pink set-icon">
+                                 <i class="fa fa-book"></i>
+                             </span>
+                             <div class="text-box" >
+                                 <p class="text-muted">
+                                     <a class="text-href-maine"  href="{{ url('indexCategoryNews') }}">اخبار</a>
+                                 </p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+     </div>
+
+ {% endblock %}

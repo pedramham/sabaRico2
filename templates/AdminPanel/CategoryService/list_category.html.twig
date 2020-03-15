@@ -1,0 +1,136 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h2>  لیست فهرست خدمات</h2>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class=" directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <!-- /. ROW  -->
+                     <hr />
+
+                     <div class="row">
+
+                         <div class="col-md-12">
+                             <!-- Advanced Tables -->
+                             <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                     لیست فهرست
+                                     <a href="{{ url('newCategoryService') }}" class="btn btn-default btn-xs pull-left">فهرست جدید</a>
+
+                                 </div>
+                                 <div class="panel-body">
+                                     <div class="table-responsive">
+                                         <table class="table listT table-striped table-bordered table-hover" id="dataTables-example">
+                                             <thead>
+                                             <tr>
+                                                 <th>نام</th>
+                                                 <th>عنوان</th>
+                                                 <th>متن</th>
+                                                 <th>وضعیت نمایش</th>
+                                                 <th>اولیت نمایش</th>
+                                                 <th>عملیات</th>
+                                             </tr>
+                                             </thead>
+                                             <tbody>
+                                             {% set  count=1 %}
+                                             {% for Category in Categorys %}
+                                                 {% if count is odd  %}
+                                                     {% set  style="odd gradeX" %}
+                                                 {% else %}
+                                                     {% set  style="even gradeC" %}
+                                                 {% endif %}
+
+                                                 <tr class="{{ style }}">
+                                                     <td>{{ Category.name |striptags|raw}}</td>
+                                                     <td>{{ Category.title |striptags|raw}}</td>
+                                                     <td>{{ Category.subject |striptags|raw|slice(0, 100)}}</td>
+                                                     <td class="center">{{ Category.displayStatus |displayNotDisplay}}</td>
+                                                     <td class="center">{{ Category.panelLastCatService}}</td>
+                                                     <td class="center listPerform">
+                                                         <a href="{{ url('deleteCategoryService',{'id': Category.id}) }}" onClick="return confirm('آیا شما مطمین هستید برای حذف این ایتم؟')"><i class="fa bg-color-red-font fa-trash" data-toggle="tooltip" title="حذف فهرست"></i></a>
+                                                         <a href="{{ url('editCategoryService',{'id': Category.id}) }}"><i class="fa bg-color-blue-font fa-edit" data-toggle="tooltip"  title="ویرایش فهرست"></i></a>
+                                                     </td>
+                                                 </tr>
+                                                 {% set  count=count+1 %}
+                                             {% endfor %}
+
+
+                                             </tbody>
+                                         </table>
+                                     </div>
+
+                                 </div>
+                             </div>
+                             <!--End Advanced Tables -->
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+     </div>
+
+     </body>
+     {% if app.session.flashBag.has('success') %}
+
+
+         <div class="modal" tabindex="-1" role="dialog" id="myModal">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h5 class="modal-title">Modal title</h5>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         <p>   {% for msg in app.session.flashBag.get('success') %}
+                                 {{ msg }}
+                             {% endfor %}</p>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-primary">Save changes</button>
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <script type="text/javascript">
+             $(window).on('load',function(){
+                 $('#myModal').modal('show');
+             });
+         </script>
+         <script>
+             $(document).ready(function(){
+                 $('[data-toggle="tooltip"]').tooltip();
+             });
+         </script>
+     {% endif %}
+     </html>
+ {% endblock %}

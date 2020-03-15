@@ -1,0 +1,117 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} " xmlns="http://www.w3.org/1999/html">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+
+{% endblock %}
+
+ {% block body %}
+     <body>
+ <div id="wrapper">
+     {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+     <!-- /. NAV TOP  -->
+     {{ include('AdminPanel/Includes/menue.html.twig')}}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <!-- /. NAV SIDE  -->
+     <div id="page-wrapper" >
+         <div id="page-inner">
+             <div class="row">
+                 <div class="col-md-12">
+                     <h2>فرم ویرایش نظرات کاربران مقاله</h2>
+                 </div>
+             </div>
+             <!-- /. ROW  -->
+             <hr />
+             <div class="row directionrtl">
+                 <div class="col-lg-12">
+                     {% for message in app.flashes('success') %}
+                         <div class="alert alert-success alert-dismissible">
+                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                             <strong>پیام سیستم!</strong>  {{ message }}
+                         </div>
+                     {% endfor %}
+                 </div>
+                 <div class=" directionrtl">
+                     <div class="col-md-12">
+                         <!-- Form Elements -->
+
+                         <div class="panel panel-default">
+                             <div class="panel-heading">
+                                 <span>لیست نظرات کاربران مربوط به مقالات</span>
+                                 <a href="{{ url('listCommentArticle') }}" class="btn btn-default btn-xs pull-left">لیست نظرات ارسال شده</a>
+                             </div>
+                             <div class="panel-body">
+                                 {{ form_start(form) }}
+                                 <div class="col-md-12">
+
+                                     <div class="col-md-6">
+                                         <div role="form">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">نام :</label>
+                                                 {{ form_widget(form.name) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">email  :</label>
+                                             {{ form_widget(form.email) }}
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                 <hr size="30" class="line-form">
+                                 <div class="col-lg-12">
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <div >
+                                                 <label for="user_plainFamily" class="required">نام پاسخ دهنده   :</label>
+                                                 {{ form_widget(form.nameAdmin) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">وضعیت نمایش  :</label>
+                                             {{ form_widget(form.displayStatus) }}
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <hr size="30" class="line-form">
+                                 <div class="col-lg-12">
+                                     <div class="col-md-12">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">نظر کاربر   :</label>
+                                             {{ form_widget(form.subject) }}
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-lg-12">
+                                     <div class="col-md-12">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required"> پاسخ   :</label>
+                                             {{ form_widget(form.answerAdmin) }}
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-12">
+                                         {{ form_widget(form.save) }}
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         {{ form_end(form) }}
+                         <!-- End Form Elements -->
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+
+                 <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+     </div>
+     </html>
+ {% endblock %}

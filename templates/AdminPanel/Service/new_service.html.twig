@@ -1,0 +1,165 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} " xmlns="http://www.w3.org/1999/html">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h5>فرم ارسال خدمات</h5>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <div class="row directionrtl">
+                         <div class="col-md-12">
+                             <div class="col-lg-12">
+                             <!-- Form Elements -->
+                             <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                     خدمات جدید
+                                     <a href="{{ url('listService') }}" class="btn btn-default btn-xs pull-left">لیست خدمات</a>
+                                 </div>
+                                 <div class="panel-body">
+                                         {{ form_start(form) }}
+                                         <div class="col-md-12">
+                                             <div class="col-md-6">
+                                                 <div role="form">
+                                                     <div class="form-group">
+                                                         <label for="user_plainFamily" class="required">نام :</label>
+                                                         {{ form_widget(form.name) }}
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-6">
+                                                 <div class="form-group">
+                                                     <label for="user_plainFamily" class="required">عنوان  :</label>
+                                                     {{ form_widget(form.title) }}
+                                                 </div>
+                                             </div>
+                                         </div>
+
+                                 <hr size="30" class="line-form">
+
+                                 <div class="col-md-12">
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">عکس کوچک :</label>
+                                             {{ form_widget(form.smallPic) }}
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required"> عکس بزرگ :</label>
+                                             {{ form_widget(form.largePic) }}
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <hr size="30" class="line-form">
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">وضعیت نمایش  :</label>
+                                                 {{ form_widget(form.displayStatus) }}
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">نمایش در پنل خدمات  :</label>
+                                                 {{ form_widget(form.panelLastService) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <hr size="30" class="line-form">
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">کلمات کلیدی :</label>
+                                                 {{ form_widget(form.labelKeyWord) }}
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">آدرس اینترنتی :</label>
+                                                 {{ form_widget(form.urlSlug) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">فهرست خبر  :</label>
+                                                 {{ form_widget(form.idCategory) }}
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">نام نویسنده :</label>
+                                                 {{ form_widget(form.authorName) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <hr size="30" class="line-form">
+                                     <div class="col-lg-12">
+                                         <div class="col-md-12">
+                                             <div class="form-group">
+                                                 .<label for="user_plainFamily" class="required">توضیحات برای سئو   :</label>
+                                                 {{ form_widget(form.descriptionSeo) }}
+
+                                             </div>
+                                         </div>
+                                         <div class="col-md-12">
+                                             <div class="form-group">
+                                                 .<label for="user_plainFamily" class="required">متن کوتاه  :</label>
+                                                 {{ form_widget(form.subject) }}
+
+                                             </div>
+                                         </div>
+                                         <div class="col-md-12">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">متن بلند  :</label>
+                                                 {{ form_widget(form.description) }}
+                                             </div>
+                                             <script type="text/javascript">
+                                                 CKEDITOR.config.contentsLangDirection='rtl';
+                                                 CKEDITOR.replace('editorX');
+                                             </script>
+                                             {{ form_widget(form.save) }}
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             {{ form_end(form) }}
+                             <!-- End Form Elements -->
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- /. PAGE INNER  -->
+             </div>
+             <!-- /. PAGE WRAPPER  -->
+         </div>
+
+     </body>
+     </html>
+ {% endblock %}

@@ -1,0 +1,265 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+{% block title %}{{ News.title  }}{% endblock %}
+{% set labelKeyWords = News.labelKeyWord|split('+') %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+      <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+      <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+      <script async custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"></script>
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/articles/' ~  News.largPic))}}" />
+    <meta name="description" content=" {{ News.descriptionSeo |striptags|raw|slice(0, 150)}}">
+    <meta name="keywords" content="{{ News.name  }}, {{ News.title  }}| {% for labelKeyWord in labelKeyWords %} {{ labelKeyWord }} | {% endfor %} ">
+    <link rel="canonical" href="https://sabarico.com/News/{{ News.id }}/{{ News.urlSlug }}" />
+    <script type="application/ld+json">
+        {"@context":"http://schema.org",
+            "@type":"BreadcrumbList",
+            "itemListElement":[{"@type":"ListItem",
+                "position":1,
+                "item":{"@id":"{{ url('mainPageIndex') }}",
+                    "name":"صفحه اصلی مجله زیبایی صبا ریکو"
+                }},
+                {"@type":"ListItem"
+                ,"position":2,
+                    "item":{"@id":"{{ url('NewsList') }}",
+                        "name":"لیست اخبار مجله زیبایی صبا ریکو"
+                    }},
+                {"@type":"ListItem"
+                ,"position":3,
+                    "item":{"@id":"{{ url('CategoryNewsList') }}",
+                        "name":"لیست فهرست اخبار مجله زیبایی صبا ریکو"
+                    }},
+                {"@type":"ListItem",
+                    "position":4,
+                    "item":{"@id":"{{ url('NewsCategoryDetails',{'id':News.idCategory,'slug':News.CategoryUrlSlug }) }}",
+                        "name":"{{ News.nameCategory }} "
+                    }},
+                {"@type":"ListItem"
+                ,"position":5,
+                    "item":{"@id":"{{ url('NewsDetailsIndex',{'id': News.id,'slug':News.urlSlug}) }}",
+                        "name":"{{ News.title }}"
+                    }}
+            ]}
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "NewsArticle",
+            "url": "{{ url('NewsDetailsIndex',{'id': News.id,'slug':News.urlSlug}) }}",
+            "publisher":{
+                "@type":"Organization",
+                "name":"SbaRico News",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ absolute_url(asset('/web/assets/images/sabarico_favicon.png'))}}"
+                }
+            },
+            "author": {
+                "@type": "Person",
+                "name": "{{ News.authorName }}"
+            },
+            "headline": "{{ News.title }}",
+            "mainEntityOfPage": "{{ url('NewsCategoryDetails',{'id':News.idCategory,'slug':News.CategoryUrlSlug }) }}",
+            "description": "{{ News.subject  |slice(0,150)|striptags()|raw}}",
+            "image":[
+                "{{ absolute_url(asset('uploads/articles/'~ News.largPic ))}}"{%  if ImageGalleries.0.name is defined %},
+{% set lengthArray =  ImageGalleries|length %}
+{% for ImageGallery in ImageGalleries  %}
+{% set lengthArray = lengthArray - 1 %}
+
+"{{ absolute_url(asset('uploads/imageGallery/'~ ImageGallery.file ))}}"{% if lengthArray > 0  %},{% endif %}
+{% endfor %}
+{% endif %}
+
+],
+            "datePublished":"{{ News.dateInsert |date("Y/m/d") }}T{{ News.dateInsert |date("H:i:s") }}"
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    <div class="d-flex text-right flex-direction-r fontSize08em bg-gary displayNone450">
+        <div class="directionRtl pr-5">
+            <a href="{{ url('mainPageIndex') }}" class="text-NavyBlue" title="صفحه اصلی مجله زیبایی صبا ریکو">صفحه اصلی</a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <a href="{{ url('NewsList') }}" class="text-dark">لیست اخبار </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <a href="{{ url('NewsCategoryDetails',{'id':News.idCategory,'slug':News.CategoryUrlSlug }) }}" class="text-dark">{{ News.nameCategory }} </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <span class="color-red">{{ News.name }}</span>
+        </div>
+    </div>
+    <div class="container mt-15 m-auto-top-p">
+        <div class="row  text-right flex-direction-r">
+            <div class="col-9 card-details m-15-990 ">
+                <div class="card border mrl-10 m-auto-top-p">
+                    <div class="card-header bg-navyBlue fontSize09em">
+                        <div>
+                            <div class="d-flex  justify-content-between flexDirection alignItemsCenter">
+                                <div class="mt--5">{{ News.name }}</div>
+                                <div class="d-flex  justify-content-end ">
+                                    <div class="pt-4">
+                                        <svg width="20px" height="20px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+                                            <title> {{ News.dateInsert |jdate("Y/m/d") }}</title>
+                                            <desc>این خبر در تاریخ   {{ News.dateInsert |jdate("Y/m/d") }} منتشر شده است</desc>
+                                            <defs></defs>
+                                            <g id="34.-Time" stroke="none"  stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                                                <g transform="translate(9.000000, 2.000000)" stroke="#FF6B6B" stroke-width="9">
+                                                    <path d="M40.9450549,59.9009901 C43.6761334,59.9009901 45.8901099,57.684578 45.8901099,54.950495 C45.8901099,52.2164121 43.6761334,50 40.9450549,50 C38.2139765,50 36,52.2164121 36,54.950495 C36,57.684578 38.2139765,59.9009901 40.9450549,59.9009901 L40.9450549,59.9009901 Z" id="Layer-1"></path>
+                                                    <path d="M52.0047728,33.5864667 L52.0047728,53.3884469" id="Layer-2" transform="translate(52.004773, 43.487457) rotate(45.000000) translate(-52.004773, -43.487457) "></path>
+                                                    <path d="M77.9215931,17.6696274 L71.6275657,23.9705789" id="Layer-3"></path>
+                                                    <path d="M81.7679431,20.1199975 L75.4739157,13.8190459" id="Layer-4"></path>
+                                                    <path d="M82.138604,55 C82.138604,32.3563253 63.8024505,14 41.183659,14 C18.5648674,14 0.228713898,32.3563253 0.228713898,55 C0.228713898,77.6436747 18.5648674,96 41.183659,96 C63.8024505,96 82.138604,77.6436747 82.138604,55 Z" id="Layer-5"></path>
+                                                    <path d="M40.9450002,13.9052809 C44.7806179,13.9052809 47.8900003,10.7924777 47.8900003,6.95264044 C47.8900003,3.11280315 44.7806179,0 40.9450002,0 C37.1093825,0 34,3.11280315 34,6.95264044 C34,10.7924777 37.1093825,13.9052809 40.9450002,13.9052809 L40.9450002,13.9052809 Z" id="Layer-6"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="pt-4">
+                                        {{ News.dateInsert |jdate("Y/m/d") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <amp-img
+                            alt="{{ News.title }}"
+                            title="{{ News.name }}"
+                            src="{{ absolute_url(asset('uploads/articles/'~ News.largPic ))}}"
+                            width="400"
+                            height="150"
+                            layout="responsive"></amp-img>
+                    <div class="card-body p-10 lineHeight25em directionRtl text-justify">
+                        <h1 class="fontSize13em">{{ News.title }} </h1>
+                        {{ News.description |striptags('<amp-instagram><amp-img></amp-img><ol></ol><ul></ul><li></li><br><p><h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><a></a><src><b><img><strong></strong><table></table><th></th></tr><tr><td></td>')|raw}}
+                        <div>
+                            <span>نام نویسنده : </span>
+                            <span>{{ News.authorName }}</span>
+                        </div>
+                        <div class="">
+                            {% for labelKeyWord in labelKeyWords %} <span class=""><h4 class="boxLabel">{{ labelKeyWord }} </h4></span> {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <amp-social-share type="email"></amp-social-share>
+                        <amp-social-share type="facebook"
+                                          data-param-app_id="254325784911610"></amp-social-share>
+                        <amp-social-share type="linkedin"></amp-social-share>
+                        <amp-social-share type="pinterest"
+                                          data-param-media="https://amp.dev/static/samples/img/amp.jpg"></amp-social-share>
+                        <amp-social-share type="tumblr"></amp-social-share>
+                        <amp-social-share type="twitter"></amp-social-share>
+                        <amp-social-share type="whatsapp"></amp-social-share>
+                        <amp-social-share type="line"></amp-social-share>
+                    </div>
+                    {%  if ImageGalleries.0.name is defined %}
+                    <div class="border pt-20 pb-20">
+                        <div class="d-flex mr-10 justify-content-between flexDirection alignItemsCenter">
+                            <div class="btnOutInfo p-rl-15-450">
+                                <strong class="text-dark">گالری عکس</strong>
+
+                            </div>  <small>(روی تصویر کلیک کنید)</small>
+
+                        </div>
+
+                        <amp-carousel id="carousel-with-lightbox"
+                                      width="180"
+                                      height="80"
+                                      heights="(min-width:500px) 400px, 400px"
+                                      controls
+                                      loop
+                                      autoplay
+                                      delay="6000"
+                                      type="slides"
+                                      lightbox>
+
+                            {% for ImageGallery in ImageGalleries %}
+                                <amp-img src="{{ absolute_url(asset('uploads/imageGallery/'~ ImageGallery.file ))}}" width="180" height="80" heights="(min-width:500px) 400px, 400px"
+                                         alt="{{ ImageGallery.alt }}" title="{{ ImageGallery.title }} " aria-describedby="{{ ImageGallery.subject|striptags|raw}}">
+                                </amp-img>
+                            {% endfor %}
+                        </amp-carousel>
+                    </div>
+                    {% endif %}
+
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelCommentController::CommentPanel',{'id': News.id,'type':'newsBase'} )) }}
+
+
+                </div>
+
+
+
+            </div>
+            <div class="col-3 card-details p-rl-451 ">
+                <div class="row">
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastNewsAction' )) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightMostPopularServiceAction' )) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastArticleAction')) }}
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelBottomRelateNews',{'idCategory':News.idCategory,'id':News.id} )) }}
+
+
+    <amp-animation id="hideAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "0",
+                        "visibility": "hidden"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+    <amp-animation id="showAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "1",
+                        "visibility": "visible"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+
+{% endblock %}

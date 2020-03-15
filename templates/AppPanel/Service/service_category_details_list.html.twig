@@ -1,0 +1,257 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+{% block title %}{{ ServiceCategories.title  }}{% endblock %}
+{% set labelKeyWords = ServiceCategories.labelKeyWord|split('+') %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+      <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/articles/' ~  ServiceCategories.largePic))}}" />
+    <meta name="description" content=" {{ ServiceCategories.descriptionSeo |striptags|raw|slice(0, 150)}}">
+    <meta name="keywords" content="{{ ServiceCategories.name  }}, {{ ServiceCategories.title  }}| {% for labelKeyWord in labelKeyWords %} {{ labelKeyWord }} | {% endfor %} ">
+    <link rel="canonical" href="https://sabarico.com/ServiceCategory/{{ ServiceCategories.id }}/{{ ServiceCategories.urlSlug }}" />
+
+    <script type="application/ld+json">
+        {"@context":"http://schema.org",
+            "@type":"BreadcrumbList",
+            "itemListElement":[{"@type":"ListItem",
+                "position":1,
+                "item":{"@id":"{{ url('mainPageIndex') }}",
+                    "name":"صفحه اصلی مجله زیبایی صبا ریکو"
+                }},
+                {"@type":"ListItem"
+                ,"position":2,
+                    "item":{"@id":"{{ url('ServiceList') }}",
+                        "name":"لیست خدمات مجله زیبایی صبا ریکو "
+                    }},
+                {"@type":"ListItem"
+                ,"position":3,
+                    "item":{"@id":"{{ url('ServiceMain') }}",
+                        "name":"لیست فهرست خدمات مجله زیبایی صبا ریکو "
+                    }},
+                {"@type":"ListItem",
+                    "position":4,
+                    "item":{"@id":"{{ url('ServiceCategoryDetails',{'id': ServiceCategories.id ,'slug':ServiceCategories.urlSlug}) }}",
+                        "name":"{{ ServiceCategories.name }}"
+                    }}
+            ]}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    <div class="d-flex text-right flex-direction-r fontSize08em bg-gary">
+        <div class="directionRtl mr-3">
+            <a href="{{ url('mainPageIndex') }}" class="text-NavyBlue" title="صفحه اصلی مجله زیبایی صبا ریکو">صفحه اصلی</a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl mr-3 ">
+            <a href="{{ url('ServiceList') }}" class="text-NavyBlue" title="لیست خدمات مجله زیبایی صباریکو">لیست خدمات </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl mr-3 ">
+            <span class="color-red">
+                <a href="{{ url('ServiceMain') }}" class="text-NavyBlue" title="لیست فهرست خدمات مجله زیبایی صبا ریکو">لیست فهرست خدمات</a>
+            </span>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl mr-3 ">
+            <a href="{{ url('ServiceCategoryDetails',{'id':ServiceCategories.id,'slug':ServiceCategories.urlSlug}) }}" class="text-NavyBlue">{{ ServiceCategories.name }} </a>
+        </div>
+
+    </div>
+    <div class="container mt-15">
+
+
+        <div class="d-flex justify-content-end border-b-l displayBlock450">
+            <div class="col-3 directionRtl flex-100-450 list-2-576 list-2-576 align-self order-1">
+                <a href="{{ url('ServiceCategoryDetails',{'id':ServiceCategories.id,'slug':ServiceCategories.urlSlug}) }} " class="imageEffectHover" title=" ">
+                    <amp-img width="290" height="290" layout="responsive" alt="{{ ServiceCategories.name }}" title="{{ ServiceCategories.title }}"
+                             src="{{ absolute_url(asset('uploads/articles/'~ ServiceCategories.smallPic ))}}">
+                    </amp-img>
+                </a>
+            </div>
+            <div class="col-9 flex-100-450 list-10-990 fontSize09em order-0 ">
+                <div class="text-justify directionRtl lineHeight2em pr-10">
+                    <h2 class="">
+                        <a href=" {{ url('ServiceCategoryDetails',{'id':ServiceCategories.id,'slug':ServiceCategories.urlSlug}) }}" class="text-dark" title="{{ ServiceCategories.urlSlug }}">
+                            {{ ServiceCategories.title }}
+                        </a>
+                    </h2>
+                    <div class="prl-15">
+                        {{ ServiceCategories.description |striptags('<ol></ol><ul></ul><li></li><br><p><h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><a></a><src><b><img><strong></strong><table></table><th></th></tr><tr><td></td>')|raw}}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row  text-right flex-direction-r">
+            <div class="col-9 card-details m-15-990 ">
+                <div class="card border mrl-10 ">
+                    <div class="card-header  bg-navyBlue fontSize09em">
+                        <div>
+                            <div class="d-flex  justify-content-between flexDirection alignItemsCenter">
+                                <div class="">خدمات مرتبط</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-10  directionRtl">
+
+                        <div class="col-12 prl-10 pt-5 directionRtl">
+                            <div class="row">
+                                {% for ServiceCategory in  ServiceCategories %}
+                                <div class="col-6 flex-100-450 panel-Service">
+                                    <div class="border m-10">
+                                        <div class="row">
+                                            <div class="col-5 align-self ">
+                                                <amp-img
+                                                        alt="Picture of a dog"
+                                                        title="Picture of a dog, view in lightbox"
+                                                        src="images/ss2.jpg"
+                                                        width="150"
+                                                        height="170"
+                                                        layout="responsive"></amp-img>
+                                            </div>
+                                            <div class="col-7 directionRtl">
+                                                <div class="prl-15">
+                                                    <h3 class="m-0 fontSize09em pt-5">سپزیباترین مانتو ها</h3>
+                                                    <div class="lineHeight2em fontSize08em text-justify">
+                                                        سالن زیبایی خوبی در تهران تاسیس شده.در این سالن ها خدمات متنوعی ارائه میشود .البته این را باید در نظر بگیرید که هرچی پول بیشتر پرداخت کنید خدمات .هزینه پرداختی برای
+                                                    </div>
+                                                    <div class="border-b"></div>
+                                                    <div class="col-12 directionRtl prl-10 pt-10 p-450">
+                                                        <div class="row">
+                                                            <div class="col-6 fontSize07em order-0">صبا شعبانی</div>
+                                                            <div class="col-6 fontSize07em order-1 text-left">
+                                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" x="0px" y="20px" viewBox="0 0 426.667 426.667" style="enable-background:new 0 0 426.667 426.667;" xml:space="preserve">
+<g>
+    <path style="fill:#50C8EF;" d="M213.333,0C95.509,0,0,95.509,0,213.333c0,117.815,95.509,213.333,213.333,213.333
+		c117.815,0,213.333-95.518,213.333-213.333C426.667,95.509,331.149,0,213.333,0z M213.333,372.527
+		c-87.778,0-159.198-71.411-159.198-159.194S125.555,54.14,213.333,54.14s159.198,71.415,159.198,159.194
+		S301.111,372.527,213.333,372.527z"/>
+    <polygon style="fill:#50C8EF;" points="294.4,238.933 187.733,238.933 187.733,98.133 238.933,98.133 238.933,187.733 294.4,187.733"/>
+</g>
+                        </svg>
+                                                                12/01/1392
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+
+                        {#<button on="tap:myAmpList.refresh" class="refresh-Btn">به روز رسانی </button>#}
+                        {#<amp-list#}
+                                {#id="myAmpList"#}
+                                {#reset-on-refresh#}
+                                {#layout="fixed-height"#}
+                                {#height="300"#}
+                                {#src="https://www.sabarico.com/ListDetailsCategoryService/jsonFile/{{ ServiceCategory.id }}"#}
+                                {#binding="no">#}
+                            {#<template type="amp-mustache">#}
+                                {#<div class="row justify-content-end border-b-l">#}
+                                    {#<div class="col-2 directionRtl flex-100-450 list-2-576 list-2-576 align-self">#}
+                                        {#<a href=" {{ '{{ url }}' }}" class="text-dark imageEffectHover" title=" {{ '{{ name }}' }}">#}
+                                            {#<amp-img width="150" height="140" layout="responsive" alt="{{ '{{ title }}' }}" title="{{ '{{ name }}' }}" src=" {{ '{{ smallPic }}' }}">#}
+                                            {#</amp-img>#}
+                                        {#</a>#}
+                                    {#</div>#}
+                                    {#<div class="col-10 flex-100-450 list-10-990 fontSize09em  ">#}
+                                        {#<div class="text-justify directionRtl lineHeight2em ">#}
+                                            {#<h3 class="pr-15 m-0">#}
+                                                {#<a href=" {{ '{{ url }}' }}" class="text-NavyBlue" title=" {{ '{{ name }}' }}">#}
+                                                    {#{{ '{{ name }}' }}#}
+                                                {#</a>#}
+                                            {#</h3>#}
+                                            {#<div class="prl-15">#}
+                                                {#{{ '{{ subject }}' }}...>#}
+                                                {#<a href=" {{ '{{ url }}' }}" class="text-NavyBlue" title=" {{ '{{ name }}' }}">#}
+                                                    {#{{ '{{ title }}' }}#}
+                                                {#</a>#}
+
+                                            {#</div>#}
+                                            {#<span style="float: left;padding-left: 15px;font-size: 0.8em;color: #e85a4f;"> {{ '{{ authorName }}' }} |  {{ '{{ dateInsert }}' }}</span>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</template>#}
+                        {#</amp-list>#}
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-3 card-details p-rl-451 ">
+                <div class="row">
+
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastServiceAction')) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightMostPopularArticleAction',{'id':ServiceCategories.id })) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastNewsAction' )) }}
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <amp-animation id="hideAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "0",
+                        "visibility": "hidden"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+    <amp-animation id="showAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "1",
+                        "visibility": "visible"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+
+{% endblock %}

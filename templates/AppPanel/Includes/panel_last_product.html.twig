@@ -1,0 +1,50 @@
+<div class="container pt-40 pb-40" >
+    <div class="d-flex mr-10 justify-content-between flexDirection alignItemsCenter">
+        <div class="btnOutInfo">
+            <strong class="text-dark">آخرین محصولات</strong>
+        </div>
+        <div class="auto-flex hr-b"></div>
+        <div class="btnInfo">
+            <strong>لیست محصولات</strong>
+        </div>
+    </div>
+
+
+    <div class="mt-15">
+        <amp-carousel height="287"  layout="fixed-height" type="carousel">
+            {% for lastProduct in lastProducts %}
+                <div class="text-light  text-right  text-dark">
+                <div class="mr-10">
+                    <a href="{{ url('ProductDetails',{'id':lastProduct.id,'slug':lastProduct.urlSlug}) }}" class="imageEffectHover">
+                        <amp-img src="{{ absolute_url(asset('uploads/product/'~ lastProduct.smallPic ))}}" width="220" height="220" alt="{{ lastProduct.name }}"></amp-img>
+                    </a>
+                    <div class="fontSize08em directionRtl  " style="margin-top: -9px">
+                        <div class="text-justify directionRtl lineHeight19em ">
+                            <h3 class="panelTitleProductList">
+                                <a href="{{ url('ProductDetails',{'id':lastProduct.id,'slug':lastProduct.urlSlug}) }}" class="text-dark">
+                                {{ lastProduct.name }}
+                                </a>
+                            </h3>
+                            <div class="panelPriceProductList ">
+                                <div class="justify-content-between d-flex ">
+                                <div>
+                                    <span>قیمت :</span>
+                                    <span class="panelPriceProduct">{{ lastProduct.price|discount(lastProduct.discount)|number_format }}</span>
+                                </div>
+                                <div>
+                                    <span class="discountPrice">
+                                    {{ lastProduct.price|number_format }}
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </amp-carousel>
+
+    </div>
+</div>
+

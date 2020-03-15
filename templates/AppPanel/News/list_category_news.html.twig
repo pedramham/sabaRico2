@@ -1,0 +1,162 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+{% block title %}فهرست مقالات آموزش زیبایی و سلامت صبا ریکو{% endblock %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+      <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <meta name="description" content="   آخرین اخبار سالن های زیبایی متدهای جدید ارایشگری , خبرهای مربوط به وسایل آرایشی جدید رنگ مو های لایت مو مش اکستنشن مژه کاشت ناخن ">
+    <meta name="keywords" content="مجله اینترنتی صباریکو|سالن های زیبایی|کاشت ابرو |وسایل آرایشگری | وسیله های جدید آرایشگری | سالن زیبایی|رنگ مو |خبر های آرایشگری|صنف آرایشگران|رنگ مو |های لایت مو | مش مو|">
+    <link rel="canonical" href="https://www.sabarico.com/NewsCM/" />
+    <script type="application/ld+json">
+        {"@context":"http://schema.org",
+            "@type":"BreadcrumbList",
+            "itemListElement":[{"@type":"ListItem",
+                "position":1,
+                "item":{"@id":"{{ url('mainPageIndex') }}",
+                    "name":"صفحه اصلی صبا ریکو"
+                }},
+                {"@type":"ListItem"
+                ,"position":2,
+                    "item":{"@id":"{{ url('NewsList') }}",
+                        "name":"لیست اخبار مجله زیبایی صبا ریکو"
+                    }},
+                {"@type":"ListItem"
+                ,"position":3,
+                    "item":{"@id":"{{ url('CategoryNewsList') }}",
+                        "name":"لیست فهرست اخبار مجله زیبایی صبا ریکو"
+                    }}
+            ]}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    <div class="d-flex text-right flex-direction-r fontSize08em bg-gary">
+        <div class="directionRtl mr-3">
+            <span>
+                <a href="{{ url('mainPageIndex') }}" class="text-NavyBlue" title="صفحه اصلی مجله زیبایی صبا ریکو">صفحه اصلی</a>
+            </span>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl mr-3 ">
+            <a href="{{ url('NewsList') }}" class="text-NavyBlue" title="لیست اخبار مجله زیبایی صبا ریکو">لیست اخبار </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl mr-3 ">
+            <span class="color-red">
+                <a href="{{ url('CategoryNewsList') }}" class="text-NavyBlue" title="لیست فهرست اخبار مجله زیبایی صبا ریکو">لیست فهرست اخبار</a>
+            </span>
+        </div>
+    </div>
+<div class="container mt-15">
+    <div class="row  text-right flex-direction-r">
+        <div class="col-9 card-details m-15-990 ">
+            <div class="card border mrl-10 ">
+                <div class="card-header  bg-navyBlue fontSize09em">
+                    <div>
+                        <div class="d-flex  justify-content-between flexDirection alignItemsCenter">
+                            <div class="">لیست فهرست اخبار </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-10  directionRtl">
+                    <button on="tap:myAmpList.refresh" class="refresh-Btn">به روز رسانی </button>
+                    <amp-list
+                            id="myAmpList"
+                            reset-on-refresh
+                            layout="fixed-height"
+                            height="1000"
+                            src="https://www.sabarico.com/ListCategoryNews/jsonFile"
+                            binding="no">
+                        <template type="amp-mustache">
+                            <div class="row justify-content-end border-b-l">
+                                <div class="col-2 directionRtl flex-100-450 list-2-576  align-self">
+                                    <a href=" {{ '{{ url }}' }}" class="text-dark imageEffectHover" title=" {{ '{{ name }}' }}">
+                                    <amp-img width="150" height="140" layout="responsive" alt="{{ '{{ title }}' }}" title="{{ '{{ name }}' }}" src=" {{ '{{ smallPic }}' }}">
+                                    </amp-img>
+                                    </a>
+                                </div>
+                                <div class="col-10 flex-100-450 list-10-990 fontSize09em  ">
+                                    <div class="text-justify directionRtl lineHeight2em ">
+                                        <h3 class="pr-15 m-0">
+                                            <a href=" {{ '{{ url }}' }}"  class="text-NavyBlue"  title=" {{ '{{ name }}' }}">
+                                                {{ '{{ name }}' }}
+                                            </a>
+                                        </h3>
+                                        <div class="prl-15">
+                                            {{ '{{ subject }}' }}...>
+                                            <a href=" {{ '{{ url }}' }}"  class="text-NavyBlue"  title=" {{ '{{ name }}' }}">
+                                                {{ '{{ title }}' }}
+                                            </a>
+
+                                        </div>
+                                        <span style="float: left;padding-left: 15px;font-size: 0.8em;color: #e85a4f;"> {{ '{{ authorName }}' }} |  {{ '{{ dateInsert }}' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </amp-list>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="col-3 card-details p-rl-451 ">
+            <div class="row">
+                {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastServiceAction')) }}
+                {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightSuggestedContent1Action')) }}
+                {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastNewsAction' )) }}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<amp-animation id="hideAnim"
+               layout="nodisplay">
+    <script type="application/json">
+        {
+            "duration": "200ms",
+            "fill": "both",
+            "iterations": "1",
+            "direction": "alternate",
+            "animations": [{
+                "selector": "#scrollToTopButton",
+                "keyframes": [{
+                    "opacity": "0",
+                    "visibility": "hidden"
+                }]
+            }]
+        }
+    </script>
+</amp-animation>
+<amp-animation id="showAnim"
+               layout="nodisplay">
+    <script type="application/json">
+        {
+            "duration": "200ms",
+            "fill": "both",
+            "iterations": "1",
+            "direction": "alternate",
+            "animations": [{
+                "selector": "#scrollToTopButton",
+                "keyframes": [{
+                    "opacity": "1",
+                    "visibility": "visible"
+                }]
+            }]
+        }
+    </script>
+</amp-animation>
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} " xmlns="http://www.w3.org/1999/html">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h5>گالری تصویر </h5>
+                         <h5>لیست تصاویر</h5>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <!-- /. ROW  -->
+                     <hr />
+
+                     <div class="col-md-12">
+                         <!-- Advanced Tables -->
+                         <div class="panel panel-default">
+                             <div class="panel-heading">گالری تصاویر</div>
+                             <div class="panel-body">
+                                 <div class="table-responsive">
+                                     <table class="table listT table-striped table-bordered table-hover" id="dataTables-example">
+                                         <thead>
+                                         <tr>
+                                             <th>#</th>
+                                             <th>نام</th>
+                                             <th>عنوان</th>
+                                             <th>متن</th>
+                                             <th>فهرست</th>
+                                             <th>وضعیت نمایش</th>
+                                             <th>عملیات</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         {% set  count=1 %}
+                                         {% for Service in Services %}
+                                             {% if count is odd  %}
+                                                 {% set  style="odd gradeX" %}
+                                             {% else %}
+                                                 {% set  style="even gradeC" %}
+                                             {% endif %}
+                                             <tr class="{{ style }}">
+                                                 <td>{{ count }}</td>
+                                                 <td>{{ Service.name |striptags|raw}}</td>
+                                                 <td>{{ Service.title |striptags|raw}}</td>
+                                                 <td>{{ Service.subject |striptags|raw|slice(0, 100)}}</td>
+                                                 <td>{{ Service.idCategory.name}}</td>
+                                                 <td class="center">{{ Service.displayStatus |displayNotDisplay}}</td>
+                                                 <td class="center listPerform">
+                                                     <a href="{{ url('listImagesGalleryService',{'id': Service.id}) }}"><i class="fa bg-color-blue-font fa-edit" data-toggle="tooltip"  title="ویرایش خبر"></i></a>
+                                                 </td>
+                                             </tr>
+                                             {% set  count=count+1 %}
+                                         {% endfor %}
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                             <div class="clearfix"></div>
+                             <div class="col-lg-12">
+                                 <div class="col-lg-2"></div>
+                                 <div class="col-lg-12 paginationAdmin" style="text-align: center">
+                                     <div class="navigation">
+                                         {{ knp_pagination_render(Services) }}
+                                     </div>
+                                 </div>
+                                 <div class="col-lg-2"></div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     </body>
+     </html>
+ {% endblock %}

@@ -1,0 +1,80 @@
+
+<div class="container mt-15 m-auto-top-p">
+    <div class="d-flex justify-content-between alignItemsCenter displayBlock-top-p">
+        <div class="col-6 col-100-top-p">
+            <div class="d-flex flex-direction-r ">
+                <div class="col-4 flex-50-top-p position-relative imageEffectHover">
+                    <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.0.id,'slug':lastCatArticles.0.urlSlug}) }}">
+                        <amp-img alt="{{ lastCatArticles.0.name }}" src="{{ absolute_url(asset('uploads/articles/'~ lastCatArticles.0.smallPic ))}}"  width="80" height="70" layout="responsive"></amp-img>
+                    </a>
+                    <div class="titleImagePT">
+                        <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.0.id,'slug':lastCatArticles.0.urlSlug}) }}" class="text-light">
+                        {{ lastCatArticles.0.name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 flex-50-top-p position-relative imageEffectHover">
+                    <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.1.id,'slug':lastCatArticles.1.urlSlug}) }}">
+                    <amp-img alt=" {{ lastCatArticles.1.name }}" src="{{ absolute_url(asset('uploads/articles/'~ lastCatArticles.1.smallPic ))}}" width="80" height="70" layout="responsive">
+                    </amp-img>
+                    </a>
+                    <div class="titleImagePT">
+                        <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.1.id,'slug':lastCatArticles.1.urlSlug}) }}" class="text-light">
+                            {{ lastCatArticles.1.name }}
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-flex flex-direction-r-r">
+
+                <div class="col-4 flex-50-top-p position-relative imageEffectHover">
+                    <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.2.id,'slug':lastCatArticles.2.urlSlug}) }}">
+                        <amp-img alt="{{ lastCatArticles.2.name }}" src="{{ absolute_url(asset('uploads/articles/'~ lastCatArticles.2.smallPic ))}}" width="80" height="70" layout="responsive">
+                        </amp-img>
+                    </a>
+                    <div class="titleImagePT">
+                        <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.2.id,'slug':lastCatArticles.2.urlSlug}) }}" class="text-light">
+                            {{ lastCatArticles.2.name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 flex-50-top-p position-relative imageEffectHover">
+                    <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.3.id,'slug':lastCatArticles.3.urlSlug}) }}">
+                        <amp-img alt="{{ lastCatArticles.3.name }}" src="{{ absolute_url(asset('uploads/articles/'~ lastCatArticles.3.smallPic ))}}" width="80" height="70" layout="responsive">
+                        </amp-img>
+                    </a>
+                    <div class="titleImagePT">
+                        <a href="{{ url('ArticleCategoryDetails',{'id':lastCatArticles.3.id,'slug':lastCatArticles.3.urlSlug}) }}" class="text-light">
+                            {{ lastCatArticles.3.name }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-5 col-100-450 p-15-top-p">
+
+            <div class="directionRtl">
+                <div class="directionRtl pb-5">آخرین مقالات</div>
+                <div class="lineHeight19em">
+                    {% set conter =1 %}
+                    {% for article in lastArticles %}
+                    <div class="pt-5">
+                        <div class="">
+                            <span>{{ conter }}-</span>
+                            <a href="{{ url('ArticleDetails',{'id': article.id,'slug':article.urlSlug}) }}" class="text-dark">
+                                <span>{{ article.title }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="border-b pb-5"></div>
+                        {% set conter=conter +1 %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

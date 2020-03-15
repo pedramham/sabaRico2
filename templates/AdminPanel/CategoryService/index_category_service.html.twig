@@ -1,0 +1,106 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} ">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+{% endblock %}
+
+ {% block body %}
+
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+
+
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h5> مدیریت سرویس </h5>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row">
+                     <div class="col-lg-12">
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-pink set-icon">
+                                <i class="fa fa-bars"></i>
+                            </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"><a  href="{{ url('listService')}}">لیست خدمات</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                                 <span class="icon-box bg-color-pink set-icon">
+                                     <i class="fa fa-newspaper"></i>
+                                 </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"> <a  href="{{ url('newService')}}">خدمات جدید</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                                 <span class="icon-box bg-color-pink-back set-icon">
+                                     <i class="fa fa-clipboard"></i>
+                                 </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"><a  href="{{ url('listServiceImagesGallery')}}">گالری تصویر</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                                 <span class="icon-box bg-color-pink set-icon">
+                                     <i class="fa fa-comment"></i>
+                                 </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"> <a  href="{{ url('listCommentService')}}">نظرات</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-12">
+                         <hr>
+                     </div>
+                     <div class="col-lg-12">
+                         <div class="col-lg-12"><h3>فهرست خدمات</h3></div>
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                                 <span class="icon-box bg-color-pink-back set-icon">
+                                     <i class="fa fa-clipboard"></i>
+                                 </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"> <a  href="{{ url('newCategoryService')}}">ایجاد فهرست جدید</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-3 col-sm-6 col-xs-6 pull-right">
+                             <div class="panel panel-back noti-box">
+                                 <span class="icon-box bg-color-pink set-icon">
+                                     <i class="fa fa-align-justify"></i>
+                                 </span>
+                                 <div class="text-box" >
+                                     <p class="text-muted"> <a  href="{{ url('listCategoryService')}}">لیست فهرست </a></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+             </div>
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+     </div>
+     </body>
+     </html>
+
+ {% endblock %}

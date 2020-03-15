@@ -1,0 +1,120 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} " xmlns="http://www.w3.org/1999/html">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h2>
+                             {% set ArticleImagesName ="" %}
+                             {% set ArticleImagesId = 0 %}
+                             {% if ArticleImages.0.idArticle.name is defined %}
+
+                              {% set ArticleImagesName = ArticleImages.0.idArticle.name %}
+                              {% set ArticleImagesId = ArticleImages.0.idArticle.id %}
+                             {% else %}
+                             {% if ArticleImages.idArticle.name is defined %}
+                                 {% set ArticleImagesName = ArticleImages.idArticle.name %}
+                                 {% set ArticleImagesId = ArticleImages.idArticle.id %}
+                             {% endif %}
+                             {% endif %}
+                             {% if idArticleEmpty is defined %}
+                             {% set ArticleImagesId = idArticleEmpty %}
+                             {% endif %}
+
+                             <span>{{ ArticleImagesName }}</span>
+                             <span>لیست تصاویر  </span>
+                         </h2>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <!-- /. ROW  -->
+                     <hr />
+
+                     <div class="col-md-12">
+                         <!-- Advanced Tables -->
+                         <div class="panel panel-default">
+                             <div class="panel-heading">
+                                 لیست تصاویر مقاله
+                                 <a href="{{ url('newImageGalley',{'id': ArticleImagesId}) }}" class="btn btn-default btn-xs pull-left">تصویر جدید</a>
+                             </div>
+                             <div class="panel-body">
+                                 <div class="table-responsive">
+                                     <table class="table listT table-striped table-bordered table-hover" id="dataTables-example">
+                                         <thead>
+                                         <tr>
+                                             <th>#</th>
+                                             <th>نام</th>
+                                             <th>عنوان</th>
+                                             <th>متن</th>
+                                             <th>توضیح تصویر</th>
+                                             <th>وضعیت نمایش</th>
+                                             <th>عملیات</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         {% set  count=1 %}
+                                         {% for ArticleImage in ArticleImages %}
+                                             {% if count is odd  %}
+                                                 {% set  style="odd gradeX" %}
+                                             {% else %}
+                                                 {% set  style="even gradeC" %}
+                                             {% endif %}
+                                             <tr class="{{ style }}">
+                                                 <td>{{ count }}</td>
+                                                 <td>{{ ArticleImage.name |striptags|raw}}</td>
+                                                 <td>{{ ArticleImage.title |striptags|raw}}</td>
+                                                 <td>{{ ArticleImage.subject |striptags|raw|slice(0, 100)}}</td>
+                                                 <td>{{ ArticleImage.alt}}</td>
+                                                 <td class="center">{{ ArticleImage.displayStatus |displayNotDisplay}}</td>
+                                                 <td class="center listPerform">
+                                                     <a href="{{ url('deleteImagesGallery',{'id': ArticleImage.id,'idArticle':ArticleImagesId}) }}" onClick="return confirm('آیا شما مطمین هستید برای حذف این ایتم؟')"><i class="fa bg-color-red-font fa-trash" data-toggle="tooltip" title="حذف خبر"></i></a>
+                                                     <a href="{{ url('editImagesGallery',{'id': ArticleImage.id}) }}"><i class="fa bg-color-blue-font fa-edit" data-toggle="tooltip"  title="ویرایش خبر"></i></a>
+                                                 </td>
+                                             </tr>
+                                             {% set  count=count+1 %}
+                                         {% endfor %}
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                             <div class="clearfix"></div>
+                             <div class="col-lg-12">
+                                 <div class="col-lg-2"></div>
+                                 <div class="col-lg-12 paginationAdmin" style="text-align: center">
+                                     <div class="navigation">
+                                         {{ knp_pagination_render(ArticleImages) }}
+                                     </div>
+                                 </div>
+                                 <div class="col-lg-2"></div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     </body>
+     </html>
+ {% endblock %}

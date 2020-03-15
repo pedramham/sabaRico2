@@ -1,0 +1,249 @@
+{% extends "AppPanel/Layouts/base.html.twig" %}
+{% block title %}{{ ProductData.title }} {% endblock %}
+{% set labelKeyWords = ProductData.labelKeyWord|split('+') %}
+  {% block javascripts %}
+      {{ parent() }}
+      <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+      <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+      <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+      <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  {% endblock %}
+{% block metaTag %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/articles/' ~  ProductData.smallPic))}}" />
+    <meta name="description" content=" {{ ProductData.descriptionSeo |striptags|raw|slice(0, 150)}}">
+    <meta name="keywords" content="{{ ProductData.name  }}, {{ ProductData.title  }}| {% for labelKeyWord in labelKeyWords %} {{ labelKeyWord }} | {% endfor %} ">
+    <link rel="canonical" href="https://sabarico.com/Product/{{ ProductData.id }}/{{ ProductData.urlSlug }}" />
+    <script type="application/ld+json">
+        {"@context":"http://schema.org",
+            "@type":"BreadcrumbList",
+            "itemListElement":[{"@type":"ListItem",
+                "position":1,
+                "item":{"@id":"{{ url('mainPageIndex') }}",
+                    "name":"صفحه اصلی مجله زیبایی صبا ریکو"
+                }},
+                {"@type":"ListItem"
+                ,"position":2,
+                    "item":{"@id":"{{ url('ProductList') }}",
+                        "name":"لیست محصولات مجله زیبایی صبا ریکو"
+                    }},
+                {"@type":"ListItem",
+                    "position":4,
+                    "item":{"@id":"{{ url('ProductCategoryDetails',{'id':ProductData.idCategory,'slug':ProductData.CategoryUrlSlug}) }}",
+                        "name":"{{ ProductData.nameCategory|striptags|raw }}"
+                    }},
+                {"@type":"ListItem"
+                ,"position":5,
+                    "item":{"@id":"{{ url('ProductDetails',{'id':ProductData.idCategory,'slug':ProductData.CategoryUrlSlug}) }}",
+                        "name":"{{ ProductData.title|striptags|raw }}"
+                    }}
+            ]}
+    </script>
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::headerTopAction')) }}
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelMenuController::menuAction')) }}
+    <div class="d-flex text-right flex-direction-r fontSize08em bg-gary">
+        <div class="directionRtl pr-5">
+            <a href="{{ url('mainPageIndex') }}" class="text-NavyBlue" title="صفحه اصلی مجله زیبایی صبا ریکو">صفحه اصلی</a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <a href="{{ url('ProductList') }}" class="text-NavyBlue" title="لیست محصولات مجله زیبایی صبا ریکو">لیست محصولات </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <a href="{{ url('ProductCategoryDetails',{'id':ProductData.idCategory,'slug':ProductData.CategoryUrlSlug}) }}" class="text-NavyBlue" title="{{ ProductData.CategoryUrlSlug }}">{{ ProductData.nameCategory }} </a>
+            <span class=""> > </span>
+        </div>
+        <div class="directionRtl pr-5 ">
+            <span class="text-NavyBlue">{{ ProductData.name }}</span>
+        </div>
+    </div>
+    <div class="container mt-15">
+        <div class="row  text-right flex-direction-r">
+            <div class="col-9 card-details m-15-990 ">
+                <div class="card  mrl-10 ">
+                    <div class="d-flex flex-wrap-r-450 alignItemsCenter">
+                        <div class="col-4 order-1 col-100-450">
+                            <amp-carousel
+                                    id="carousel-with-preview"
+                                    height="180" width="200" layout="responsive" type="slides">
+                                {% for ImageGallery in ImageGalleries %}
+                                <amp-img
+                                        src="{{ absolute_url(asset('uploads/imageGallery/'~ ImageGallery.file ))}}"
+                                        width="200" height="200" layout="responsive"
+                                        alt="{{ ImageGallery.title }}" title="{{ ImageGallery.name }}"
+                                ></amp-img>
+                                {% endfor %}
+
+                            </amp-carousel>
+                            <div class="carousel-preview text-center">
+                                {% set count = 0 %}
+                                {% for ImageGallery in ImageGalleries %}
+                                    <button class="btn-carousel-preview" on="tap:carousel-with-preview.goToSlide(index={{ count }})">
+                                    <amp-img
+                                            src="{{ absolute_url(asset('uploads/imageGallery/'~ ImageGallery.file ))}}"
+                                            width="60" height="40"
+                                            alt="{{ ImageGallery.title }}" title="{{ ImageGallery.name }}"
+                                    ></amp-img>
+                                </button>
+                                    {% set count = count+1 %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-8 order-0  directionRtl col-100-450 mt-450-10">
+                            <div class="card prl-5">
+                                <div class="directionRtl">
+                                    <div class="d-flex mb-10">
+                                        <div class="p-details-t">نام محصول :</div>
+                                        <div class="p-details-d ">{{ ProductData.title }}</div>
+                                    </div>
+                                    <div class="d-flex mb-10">
+                                        <div class="p-details-t ">قیمت :</div>
+                                        <div class="p-details-d ">
+                                            <span>{{ ProductData.price|discount(ProductData.discount)|number_format }} تومان </span>
+                                            <span class="discountPrice">{{ ProductData.price }} تومان </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-10">
+                                        <div class="p-details-t "> کشور سازنده :</div>
+                                        <div class="p-details-d ">{{ ProductData.manufacturingCountry }}</div>
+                                    </div>
+
+                                    <div class="d-flex mb-10">
+                                        <div class="p-details-t ">کد محصول :</div>
+                                        <div class="p-details-d "> {{ ProductData.productCode }}</div>
+                                    </div>
+                                    <div class="d-flex mb-10">
+                                        <div class="p-details-t"> تخفیف :</div>
+                                        <div class="p-details-d ">{{ ProductData.discount }}% </div>
+                                    </div>
+                                    <div class="d-flex   mb-10">
+                                        <div class="p-details-t "> نام برند :</div>
+                                        <div class="p-details-d ">{{ ProductData.brand }} </div>
+                                    </div>
+                                    <div class="d-flex   mb-10">
+                                        <div class="p-details-t "> تلفن فروشنده :</div>
+                                        <div class="p-details-d ">{{ ProductData.sellerTelephone }} </div>
+                                    </div>
+                                    <div class="d-flex   mb-10">
+                                        <div class="p-details-t "> گارانتی :</div>
+                                        <div class="p-details-d ">{{ ProductData.guarantee }} </div>
+                                    </div>
+                                    <div class="d-flex   mb-10">
+                                        <div class="p-details-t "> مدت گارانتی :</div>
+                                        <div class="p-details-d ">{{ ProductData.periodGuarantee|date('m') }} </div>
+                                    </div>
+                                </div>
+                                <div class="border-b"></div>
+                                <div class="text-center mt-10">
+                                    <amp-social-share type="email"></amp-social-share>
+                                    <amp-social-share type="facebook"
+                                                      data-param-app_id="254325784911610"></amp-social-share>
+                                    <amp-social-share type="linkedin"></amp-social-share>
+                                    <amp-social-share type="pinterest"
+                                                      data-param-media="https://amp.dev/static/samples/img/amp.jpg"></amp-social-share>
+                                    <amp-social-share type="tumblr"></amp-social-share>
+                                    <amp-social-share type="twitter"></amp-social-share>
+                                    <amp-social-share type="whatsapp"></amp-social-share>
+                                    <amp-social-share type="line"></amp-social-share>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 mt-15">
+                        <div class="border-b"></div>
+                    </div>
+                    <div class="col-12 mtt-15">
+                        <amp-selector class="tabs-with-selector directionRtl"
+                                      role="tablist"
+                                      on="select:myTabPanels.toggle(index=event.targetOption, value=true)">
+                            <div id="sample3-tab1"
+                                 role="tab"
+                                 aria-controls="sample3-tabpanel1"
+                                 option="0"
+                                 selected>توضیحات</div>
+                            <div id="sample3-tab2"
+                                 role="tab"
+                                 aria-controls="sample3-tabpanel2"
+                                 option="1">مشخصات</div>
+
+                        </amp-selector>
+
+                        <amp-selector id="myTabPanels"
+                                      class="tabpanels border p-15 lineHeight25em text-justify directionRtl">
+                            <div id="sample3-tabpanel1" role="tabpanel" aria-labelledby="sample3-tab1" option selected>
+                                {{ ProductData.subject |striptags('<ol></ol><ul></ul><li></li><br><p><h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><a></a><src><b><img><strong></strong><table></table><th></th></tr><tr><td></td>')|raw}}
+                            </div>
+
+                            <div id="sample3-tabpanel2" role="tabpanel" aria-labelledby="sample3-tab2" option>
+                                {{ ProductData.description |striptags('<ol></ol><ul></ul><li></li><br><p><h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><a></a><src><b><img><strong></strong><table></table><th></th></tr><tr><td></td>')|raw}}
+                            </div>
+
+                        </amp-selector>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="col-3 card-details p-rl-451 ">
+                <div class="row">
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelProductController::panelRightLastProductAction',{'id':ProductData.id} )) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelProductController::panelRightSuggestedProductAction' )) }}
+                    {{ render(controller('App\\Controller\\AppPanel\\PanelDetailsPageController::panelRightLastNewsAction' )) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <amp-animation id="hideAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "0",
+                        "visibility": "hidden"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+    <amp-animation id="showAnim"
+                   layout="nodisplay">
+        <script type="application/json">
+            {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [{
+                    "selector": "#scrollToTopButton",
+                    "keyframes": [{
+                        "opacity": "1",
+                        "visibility": "visible"
+                    }]
+                }]
+            }
+        </script>
+    </amp-animation>
+
+
+    {{ render(controller('App\\Controller\\AppPanel\\PanelController::footerAction' )) }}
+
+{% endblock %}

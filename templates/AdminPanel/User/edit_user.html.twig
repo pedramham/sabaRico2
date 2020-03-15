@@ -1,0 +1,234 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h2>فرم ویرایش کاربر  </h2>
+                         <h5>برای امینت بیشتر بعد از هر ادیت از رمز عبور جدید استفاده کنید</h5>
+
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class=" directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+
+                     </div>
+                     <div class="row directionrtl">
+                         <div class="col-md-12">
+                             <!-- Form Elements -->
+                             <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                      فرم ویرایش کاربر
+                                     <a href="{{ url('ListUser') }}" class="btn btn-default btn-xs pull-left">لیست کاربران</a>
+                                 </div>
+                                 <div class="panel-body">
+                                     <div class="row">
+                                         {{ form_start(form) }}
+                                         <div class="col-md-12">
+                                             <div class="col-lg-6">
+                                                 <div class="form-group">
+                                                     <label for="user_plainName" class="required">نام
+                                                     </label>
+
+                                                     {{ form_widget(form.name) }}
+                                                     <span class="errorForm">
+                                                     {{ form_errors(form.name) }}
+                                                     </span>
+                                                 </div>
+                                             </div>
+                                             <div class="col-lg-6">
+                                                 <div class="form-group">
+                                                     <label for="user_plainFamily" class="required">                                                     نام خانوادگی
+
+                                                     </label>
+                                                     {{ form_widget(form.family) }}
+                                                     <span class="errorForm">
+                                                     {{ form_errors(form.family) }}
+                                                     </span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                        <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainEmail" class="required">ایمیل
+                                                 </label>
+
+                                                 {{ form_widget(form.email) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.email) }}
+                                                 </span>
+                                             </div>
+                                         </div>
+                                            <div class="col-lg-6">
+
+                                             <div class="form-group">
+                                                 <label for="user_plainUsername" class="required">
+                                                     نام کاربری
+                                                 </label>
+                                                 {{ form_widget(form.username) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.username) }}
+                                                 </span>
+                                             </div>
+                                            </div>
+                                     </div>
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 {{ form_row(form.plainPassword.first) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.plainPassword.first) }}
+                                                 </span>
+
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+
+                                                 {{ form_row(form.plainPassword.second) }}
+                                                 <span class="errorForm">
+                                                 </span>
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainTelephon" class="required">تلفن
+                                                 </label>
+
+                                                 {{ form_widget(form.telephon) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.telephon) }}
+                                                 </span>
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainMobile" class="required">موبایل
+                                                 </label>
+
+                                                 {{ form_widget(form.mobile) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.mobile) }}
+                                                 </span>
+
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-lg-12">
+                                         <div class="col-md-6">
+                                                 <div class="col-lg-12">
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <button type="button" data-toggle="modal" data-target="#userPic" class="btn btn-info padding0px pull-left" >
+                                                                 <i class="fa fa-picture-o" aria-hidden="true" style="font-size: 25px;"></i>
+                                                             </button>
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label for="user_plainRoles" class="required"> تصویر کاربر
+                                                             </label>
+                                                             {{ form_widget(form.picUser) }}
+                                                         </div>
+                                                     </div>
+                                                 </div>
+
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainAddress" class="required">آدرس
+                                                 </label>
+
+                                                 {{ form_widget(form.address) }}
+                                                 <span class="errorForm">
+                                                 {{ form_errors(form.address) }}
+                                                 </span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainRoles" class="required">  سطح دسترسی
+                                             </label>
+
+                                             {{ form_widget(form.roles) }}                                                                              </div>
+                                     </div>
+                                     </br>
+
+
+                                         <div class="col-md-12">
+                                             <div class="form-group">
+                                                 <label for="user_plainSubject" class="required">توضیحات
+                                                 </label>
+
+                                                 {{ form_widget(form.subject) }}
+                                             </div>
+                                             <script type="text/javascript">
+                                                 CKEDITOR.config.contentsLangDirection='rtl';
+                                                 CKEDITOR.replace('editorX');
+                                             </script>
+                                             {{ form_widget(form.save) }}
+                                         </div>
+
+                                 </div>
+                             </div>
+                             {{ form_end(form) }}
+                             <!-- End Form Elements -->
+                         </div>
+                     </div>
+                     <!-- /. ROW  -->
+
+                     <div class="col-md-12">
+                         <h3>راهنمایی ویرایش کاربر     </h3>
+                         <p>
+                             برای ویرایش کاربر  کلیه فیلد ها را تکمیل کنید                             </p>
+                     </div>
+
+                     <!-- /. ROW  -->
+                 </div>
+                 <!-- /. PAGE INNER  -->
+             </div>
+             <!-- /. PAGE WRAPPER  -->
+         </div>
+         <div class="modal fade" id="userPic" role="dialog">
+             <div class="modal-dialog ">
+                 <div class="modal-content">
+
+                     <div class="modal-body text-tabs">
+                         <a href="">
+                             <img class="imge-modal" style="width: 100%" src="{{ absolute_url(asset('uploads/mainpagepics/' ~  Users.picUser))}}">
+                         </a>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </body>
+     </html>
+ {% endblock %}

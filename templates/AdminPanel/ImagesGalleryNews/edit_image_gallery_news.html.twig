@@ -1,0 +1,145 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+
+    <meta name="description" content="  {{ categoryIddata.subject |striptags }} " xmlns="http://www.w3.org/1999/html">
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('uploads/images/' ~  categoryIddata.picCategory))}}" />
+
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         {#<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>#}
+         <script src="{{ absolute_url( asset('front/js/jquery3.js'))}}"></script>
+
+         {{ include('AdminPanel/Includes/headerTop.html.twig')}}
+
+         <!-- /. NAV TOP  -->
+         {{ include('AdminPanel/Includes/menue.html.twig')}}
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" >
+             <div id="page-inner">
+                 <div class="row">
+                     <div class="col-md-12">
+                         <h5>فرم ویرایش تصویر</h5>
+                     </div>
+                 </div>
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class="row directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <div class="row directionrtl">
+                         <div class="col-md-12">
+                             <div class="col-lg-12">
+                             <!-- Form Elements -->
+                             <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                     تصویر جدید
+                                 </div>
+                                 <div class="panel-body">
+                                         {{ form_start(form) }}
+                                         <div class="col-md-12">
+                                             <div class="col-md-6">
+                                                 <div role="form">
+                                                     <div class="form-group">
+                                                         <label for="user_plainFamily" class="required">نام :</label>
+                                                         {{ form_widget(form.name) }}
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-6">
+                                                 <div class="form-group">
+                                                     <label for="user_plainFamily" class="required">عنوان  :</label>
+                                                     {{ form_widget(form.title) }}
+                                                 </div>
+                                             </div>
+                                         </div>
+
+                                 <hr size="30" class="line-form">
+                                     <div class="col-md-12">
+                                         <div class="col-md-6">
+                                             <div class="col-lg-12">
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <button type="button" data-toggle="modal" data-target="#file" class="btn btn-info padding0px pull-left" >
+                                                             <i class="fa fa-file-image" aria-hidden="true" style="font-size: 25px;"></i>
+                                                         </button>
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                     <div class="form-group">
+                                                         <label for="user_plainRoles" class="required">تصویر
+                                                         </label>
+                                                         {{ form_widget(form.file) }}
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="user_plainFamily" class="required">توضیح عکس :</label>
+                                                 {{ form_widget(form.alt) }}
+                                             </div>
+                                         </div>
+                                     </div>
+                                 <div class="col-md-12">
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">اولویت نمایش :</label>
+                                             {{ form_widget(form.displayPriority) }}
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="user_plainFamily" class="required">وضعیت نمایش  :</label>
+                                             {{ form_widget(form.displayStatus) }}
+                                         </div>
+                                     </div>
+                                 </div>
+                                     <div class="col-lg-12">
+
+                                         <div class="col-md-12">
+                                             <div class="form-group">
+                                                 .<label for="user_plainFamily" class="required">متن کوتاه  :</label>
+                                                 {{ form_widget(form.subject) }}
+
+                                             </div>
+                                         </div>
+                                     </div>
+
+                             </div>
+                             {{ form_end(form) }}
+                             <!-- End Form Elements -->
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <!-- /. PAGE INNER  -->
+             </div>
+             <!-- /. PAGE WRAPPER  -->
+         </div>
+     <div class="modal fade" id="file" role="dialog">
+         <div class="modal-dialog ">
+             <div class="modal-content">
+
+                 <div class="modal-body text-tabs">
+                     <a href="">
+                         <img class="imge-modal" style="width: 100%" src="{{ absolute_url(asset('uploads/imageGallery/' ~  imageGalleryNewsData.file))}}">
+                     </a>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+     </html>
+ {% endblock %}

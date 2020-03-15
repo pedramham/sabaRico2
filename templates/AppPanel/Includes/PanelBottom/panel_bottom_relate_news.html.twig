@@ -1,0 +1,71 @@
+
+
+<div class="container pt-40 pb-40" >
+    <div class="d-flex mr-10 justify-content-between flexDirection alignItemsCenter">
+        <div class="btnOutInfo">
+            <strong class="text-dark">اخبار مرتبط</strong>
+        </div>
+        <div class="auto-flex hr-b"></div>
+        <div class="btnInfo">
+            <strong>
+                <a href="{{ url('NewsList') }}" class="text-light" title="لیست اخبار مجله زیبایی صبا ریکو">
+                لیست  اخبار
+                </a>
+            </strong>
+        </div>
+    </div>
+
+
+    <div class="mt-15">
+        <amp-carousel height="380"  layout="fixed-height" type="carousel">
+            {% for lastRelateNews in lastRelateNewses %}
+                <div class="text-light  text-right  text-dark">
+                    <div class=" prl-10 pb-12">
+                        <a href="{{ url('NewsDetailsIndex',{'id':lastRelateNews.id,'slug':lastRelateNews.urlSlug}) }}" class="imageEffectHover">
+                        <amp-img src="{{ absolute_url(asset('uploads/articles/'~ lastRelateNews.smallPic ))}}" width="260" height="220"
+                                 alt="{{ lastRelateNews.name }}" title="{{ lastRelateNews.title }}"  aria-describedby="{{ lastRelateNews.subject|striptags|raw|slice(0, 150) }}"></amp-img>
+                        </a>
+                        <div class="d-flex  justify-content-end">
+                            <h2 class="fontSize1em m-0">
+                                <a href="{{ url('NewsDetailsIndex',{'id':lastRelateNews.id,'slug':lastRelateNews.urlSlug}) }}" title="  {{ lastRelateNews.title }}" class="text-NavyBlue">
+                                {{ lastRelateNews.name }}
+                                </a>
+                            </h2>
+                            <svg class="pt-5" height="15px" width="15px" viewBox="0 0 48 48" enable-background="new 0 0 48 48">
+                                <polygon fill="#2196F3" points="30.9,43 34,39.9 18.1,24 34,8.1 30.9,5 12,24"/>
+                            </svg>
+                        </div>
+
+                        <div class="col-12 ">
+                            <div class="fontSize08em lineHeight19em text-justify directionRtl prl-10 boxAmp-carlous">
+                                {{ lastRelateNews.subject |striptags|raw|slice(0, 140)|raw}}...
+                                <a href="{{ url('NewsDetailsIndex',{'id':lastRelateNews.id,'slug':lastRelateNews.urlSlug}) }}" class="text-NavyBlue" title="{{ lastRelateNews.title }}">
+                                ( {{ lastRelateNews.title }})
+                                </a>
+                            </div>
+                            <div class="prl-15">
+                                <div class="d-flex">
+                                    {#<div class="col-6 fontSize07em order-1">{{ lastService.authorName }}</div>#}
+                                    <div class="col-6 fontSize07em order-0 text-left">
+                                        <svg version="1.1" id="Layer_1"  width="12px" height="12px" x="0px"  viewBox="0 0 426.667 426.667" style="enable-background:new 0 0 426.667 426.667;" xml:space="preserve">
+<g>
+    <path style="fill:#50C8EF;" d="M213.333,0C95.509,0,0,95.509,0,213.333c0,117.815,95.509,213.333,213.333,213.333
+		c117.815,0,213.333-95.518,213.333-213.333C426.667,95.509,331.149,0,213.333,0z M213.333,372.527
+		c-87.778,0-159.198-71.411-159.198-159.194S125.555,54.14,213.333,54.14s159.198,71.415,159.198,159.194
+		S301.111,372.527,213.333,372.527z"/>
+    <polygon style="fill:#50C8EF;" points="294.4,238.933 187.733,238.933 187.733,98.133 238.933,98.133 238.933,187.733 294.4,187.733"/>
+</g>
+                        </svg>
+                                        {{ lastRelateNews.dateInsert |jdate("Y/m/d") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </amp-carousel>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="card border order-0-451 auto-flex flex-100-450 flex-30-451 mrl-10">
+    <div class="card-header bg-navyBlue fontSize09em">
+        <div class="d-flex  justify-content-between flexDirection alignItemsCenter">
+            <div class="mt--5">آخرین محصولات</div>
+            <div class="pt-4">
+                <svg width="20px" height="20px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+                    <title>محصولات  زیبایی و سلامت و آرایشگری</title>
+                    <desc>محصولات زیبایی و سلامت آریشگری</desc>
+                    <defs></defs>
+                    <g id="36.-Group-of-cards" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                        <g transform="translate(2.000000, 2.000000)" stroke="#EAE7DC" stroke-width="9">
+                            <polygon id="Layer-1" points="0 0 40 0 40 40 0 40"></polygon>
+                            <polygon id="Layer-2" points="56 0 96 0 96 40 56 40"></polygon>
+                            <polygon id="Layer-3" points="56 56 96 56 96 96 56 96"></polygon>
+                            <polygon id="Layer-4" points="0 56 40 56 40 96 0 96"></polygon>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="card-body fontSize08em">
+        {% for panelRightLastProduct in panelRightLastProducts %}
+            <div class="border-b p-10">
+                 <a href="{{ url('ArticleDetails',{'id':panelRightLastProduct.id,'slug':panelRightLastProduct.urlSlug}) }}" title=" {{ panelRightLastProduct.title }}" class="text-dark">
+                {{ panelRightLastProduct.name }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="border pt-20 pb-20">
+    <div class="d-flex mr-10 justify-content-between flexDirection alignItemsCenter" style="margin-bottom: 10px">
+        <div class="btnOutInfo p-rl-15-450">
+            <strong class="text-dark">نظرات کاربران</strong>
+        </div>
+    </div>
+
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+{% set lengthArrayComment =  comments|length %}
+{% for comment in comments %}
+{% set lengthArrayComment = lengthArrayComment - 1 %}
+
+                    {
+                        "@type": "Question",
+                        "name": " {{ comment.subject|striptags|raw }}",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "{{ comment.answerAdmin|striptags|raw }}"
+                    }
+                    }{% if lengthArrayComment > 0  %},{% endif %}
+{% endfor %}
+
+
+                ]
+            }
+        </script>
+
+    {% for comment in comments %}
+        <div class="directionRtl ">
+            <div class="p-comment-a">
+                <div class="col-1">
+                    <div style="vertical-align: top;text-align: center;background: #042f4b;padding: 0px 10px 0px 10px;border-radius: 2px;color: white;">
+                        {{ comment.name|striptags|raw }}
+                    </div>
+                </div>
+                <div class="col-11 text-justify" style="padding-right:5px">
+                    {{ comment.subject|striptags|raw }}
+                </div>
+
+            </div>
+            <div class="p-comment-a bg-gary5">
+                <div class="col-1 text-center">
+                    <div style="vertical-align: top;text-align: center;background:#d00731;padding: 0px 10px 0px 10px;border-radius: 2px;color: white;">
+                        {{ comment.nameAdmin|striptags|raw }}
+                    </div>
+
+                </div>
+                <div class="col-11 text-justify " style="padding-right:5px">
+                    {{ comment.answerAdmin|striptags|raw }}
+                </div>
+            </div>
+        </div>
+
+         <div class="col-12 mt-15">
+            <div class="border-b"></div>
+        </div>
+
+
+
+    {% endfor %}
+
+
+<form class="mt-15"
+      action-xhr="{{ url('submitComment') }}"
+      method="post"  target="_top">
+    <div class="d-flex flex-wrap-r-450 justify-content-around">
+        <div class="ColInputForm">
+            <input name="name" type="text" placeholder="نام " required pattern="\w+" style="border: 1px solid black;padding: 2px 5px 5px 5px;direction: rtl;border-radius: 2px;">
+        </div>
+        <div class="ColInputForm">
+            <input name="email" type="email" placeholder="email" required style="border: 1px solid black;padding: 2px 5px 5px 5px;direction: rtl;border-radius: 2px;">
+            <input name="id" type="hidden" value="{{ id }}">
+            <input name="type" type="hidden" value="{{ type }}">
+        </div>
+    </div>
+    <div>
+        <textarea cols="90" rows="7" name="subject" class="textAreaForm"  id="verification-username"  style="border: 1px solid black;direction: rtl;"></textarea>
+    </div>
+
+    <input type="submit" value="ارسال" style="background-color: black;border-color: #042f4b;color: #fffdfd;border-radius: 2px;margin-top: 10px;padding: 2px 10px 5px 10px;">
+    <div submit-success>
+        <template type="amp-mustache">
+            <div  style="text-align: center">
+                <span>عزیز پیام شما با موفقیت ارسال شد. </span>
+                <span>{{ '{{ name }}' }}</span>
+            </div>
+        </template>
+    </div>
+
+    <div submit-error>
+        <template type="amp-mustache">
+            {{ '{{verifyErrors}}' }}
+            <p>{{ '{{message}}' }}</p>
+            {{ ' {{/verifyErrors}}' }}
+            {{ '   {{^verifyErrors}}' }}
+            <p>Something went wrong. Try again later?</p>
+            {{ '{{/verifyErrors}}' }}
+
+            <p>Submission failed</p>
+        </template>
+    </div>
+
+</form>
+</div>

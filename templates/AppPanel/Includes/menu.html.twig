@@ -1,0 +1,381 @@
+<header>
+<amp-mega-menu id="mega-menu" height="50" layout="fixed-height" style="position: initial;">
+    <nav class="bg-red1 p-15">
+        <ul class="container text-right directionRtl">
+            <li class="">
+                <div role="button" class="fontSize1em fontVaziriMedium text-light">
+                    <a href="{{ url('mainPageIndex') }}" title="صفحه اصلی مجله زیبایی صبا ریکو " class="text-light">
+                    صفحه اصلی
+                    </a>
+                </div>
+            </li>
+
+            <li class="">
+                <div role="button" class="fontSize1em pr-15 fontVaziriMedium text-light">مقالات</div>
+                <div role="dialog">
+                    <div class="container p-15">
+                        <div class="row">
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">فهرست  مقالات</strong>
+                                </div>
+                                {% for categoryMenuArticle in categoryMenuArticles %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('ArticleCategoryDetails',{'id':categoryMenuArticle.id,'slug':categoryMenuArticle.urlSlug}) }}" title=" {{ categoryMenuArticle.title }}" class="text-dark" >
+                                            {{ categoryMenuArticle.name }}
+                                        </a>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">مقالات پربازدید</strong>
+                                </div>
+                                {% for suggestedMenuArticle in suggestedMenuArticles  %}
+                                <div class="pt-5">
+                                    <a href="{{ url('ArticleDetails',{'id':suggestedMenuArticle.id,'slug':suggestedMenuArticle.urlSlug}) }}" title=" {{ suggestedMenuArticle.title }}" class="text-dark" >
+                                        {{ suggestedMenuArticle.name }}
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">آخرین مقالات</strong>
+                                </div>
+                                {% for lastMenuArticle in lastMenuArticles  %}
+                                <div class="pt-5">
+                                    <a href="{{ url('ArticleDetails',{'id':lastMenuArticle.id,'slug':lastMenuArticle.urlSlug}) }}" title=" {{ lastMenuArticle.title }}" class="text-dark" >
+                                        {{ lastMenuArticle.name }}
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-3  position-relative displayNone990 displayNone-768">
+                                <a href="{{ url('NewsDetailsIndex',{'id':suggestedOneNews.id,'slug':suggestedOneNews.urlSlug}) }}">
+                                <amp-img on="tap:lightbox1"
+                                         role="button"
+                                         tabindex="0"
+                                         aria-describedby="{{ suggestedOneNews.subject|raw|slice(0, 300) }}"
+                                         alt="{{ suggestedOneNews.name }}"
+                                         title="{{ suggestedOneNews.title }}"
+                                         src="{{ absolute_url(asset('uploads/articles/'~ suggestedOneNews.smallPic ))}}"
+                                         width="280"
+                                         height="220"></amp-img>
+                                </a>
+                                <div id="imageDescription " class="robanTextImage">
+                                    <a href="{{ url('NewsDetailsIndex',{'id':suggestedOneNews.id,'slug':suggestedOneNews.urlSlug}) }}" title=" {{ suggestedOneNews.title }}" class="text-light">
+                                        {{ suggestedOneNews.name }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li class="">
+                <div role="button" class="fontSize1em pr-15 fontVaziriMedium text-light">خدمات</div>
+                <div role="dialog">
+                    <div class="container p-15">
+                        <div class="row">
+                            <div class="col-3  position-relative displayNone990 displayNone-768">
+                                <a href="{{ url('ServiceDetailAction',{'id':suggestedOneMenuService.id,'slug':suggestedOneMenuService.urlSlug}) }}">
+                                    <amp-img on="tap:lightbox1"
+                                             role="button"
+                                             tabindex="0"
+                                             aria-describedby="{{ suggestedOneMenuService.subject|raw|slice(0, 300) }}"
+                                             alt="{{ suggestedOneMenuService.name }}"
+                                             title="{{ suggestedOneMenuService.title }}"
+                                             src="{{ absolute_url(asset('uploads/articles/'~ suggestedOneMenuService.smallPic ))}}"
+                                             width="280"
+                                             height="220"></amp-img>
+                                </a>
+                                <div id="imageDescription " class="robanTextImage">
+                                    <a href="{{ url('ServiceDetailAction',{'id':suggestedOneMenuService.id,'slug':suggestedOneMenuService.urlSlug}) }}" title=" {{ suggestedOneMenuService.title }}" class="text-light">
+                                        {{ suggestedOneMenuService.name }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">فهرست خدمات</strong>
+                                </div>
+                                {% for categoryMenusService in categoryMenusServices %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('ServiceCategoryDetails',{'id':categoryMenusService.id,'slug':categoryMenusService.urlSlug}) }}" title=" {{ categoryMenusService.title }}" class="text-dark" >
+                                            {{ categoryMenusService.name }}
+                                        </a>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">آخرین خدمات</strong>
+                                </div>
+                                {% for suggestedMenuService in suggestedMenuServices %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('ServiceDetailAction',{'id':suggestedMenuService.id,'slug':suggestedMenuService.urlSlug}) }}" title=" {{ suggestedMenuService.title }}" class="text-dark" >
+                                            {{ suggestedMenuService.name }}
+                                        </a>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">آخرین مطالب</strong>
+                                </div>
+                                {% for lastMenuContent in lastMenuContents  %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('ContentDetails',{'id':lastMenuContent.id,'slug':lastMenuContent.urlSlug}) }}" title=" {{ lastMenuContent.title }}" class="text-dark" >
+                                            {{ lastMenuContent.name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li class="">
+                <div role="button" class="fontSize1em pr-15 fontVaziriMedium text-light">اخبار</div>
+                <div role="dialog">
+                    <div class="container p-15">
+                        <div class="row">
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">فهرست  اخبار</strong>
+                                </div>
+                                {% for categoryMenuNews in categoryMenuNewses %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('NewsCategoryDetails',{'id':categoryMenuNews.id,'slug':categoryMenuNews.urlSlug}) }}" title=" {{ categoryMenuNews.title }}" class="text-dark" >
+                                            {{ categoryMenuNews.name }}
+                                        </a>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">اخبار پربازدید</strong>
+                                </div>
+                                {% for lastMenuNews in lastMenuNewses  %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('NewsDetailsIndex',{'id':lastMenuNews.id,'slug':lastMenuNews.urlSlug}) }}" title=" {{ lastMenuNews.title }}" class="text-dark" >
+                                            {{ lastMenuNews.name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-3 fontSize09em">
+                                <div class="">
+                                    <strong class="border-b">اخرین محصولات</strong>
+                                </div>
+                                {% for lastMenuProduct in lastMenuProducts  %}
+                                    <div class="pt-5">
+                                        <a href="{{ url('ProductDetails',{'id':lastMenuProduct.id,'slug':lastMenuProduct.urlSlug}) }}" title=" {{ lastMenuProduct.title }}" class="text-dark" >
+                                            {{ lastMenuProduct.name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-3  position-relative displayNone990 displayNone-768">
+                                <a href="{{ url('ProductDetails',{'id':suggestedOneMenuProduct.id,'slug':suggestedOneMenuProduct.urlSlug}) }}">
+                                    <amp-img on="tap:lightbox1"
+                                             role="button"
+                                             tabindex="0"
+                                             aria-describedby="{{ suggestedOneMenuProduct.subject|raw|slice(0, 300) }}"
+                                             alt="{{ suggestedOneMenuProduct.name }}"
+                                             title="{{ suggestedOneMenuProduct.title }}"
+                                             src="{{ absolute_url(asset('uploads/product/'~ suggestedOneMenuProduct.smallPic ))}}"
+                                             width="280"
+                                             height="220"></amp-img>
+                                </a>
+                                <div id="imageDescription " class="robanTextImage">
+                                    <a href="{{ url('NewsDetailsIndex',{'id':suggestedOneMenuProduct.id,'slug':suggestedOneMenuProduct.urlSlug}) }}" title=" {{ suggestedOneMenuProduct.title }}" class="text-light">
+                                        {{ suggestedOneMenuProduct.name }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li class="pr-15">
+                <div role="button" class="fontSize1em fontVaziriMedium text-light">
+                    <a href="{{ url('aboutUS') }}" title="درباره ما مجله زیبایی صبا ریکو " class="text-light">
+                       درباره ما
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</amp-mega-menu>
+<button class="sidebar-open-btn btnMenu" on="tap:sidebar" >
+    <svg height="25px" width="35px">
+        <rect fill="#00000" height="5" width="40" x="1" y="0"></rect>
+        <rect fill="#D00731" height="5" width="45" x="1" y="10"></rect>
+        <rect fill="#00000" height="5" width="40" x="1" y="20"></rect>
+    </svg>
+    {#<svg width="30px" height="30px" data-name="Layer 1" id="Layer_1" viewBox="0 0 64 64" >#}
+      {#<path d="M60.85,11.72H3.15V0h57.7ZM3.222,37.86h57.7V26.14H3.15Zm57.7,14.42H3.15V64h57.7Z" fill="#fff" />#}
+  {#</svg>#}
+</button>
+</header>
+<amp-sidebar id="sidebar" layout="nodisplay" side="right" style="width: 250px;direction: rtl;background-color: #D00731">
+    <amp-accordion>
+        <!-- list of menu items here -->
+        <section>
+            <h4 style="text-align: center;background-color:white">
+                <amp-img src="{{ absolute_url(asset('/web/assets/images/sabarico_favicon.png'))}}" width="80" height="80"
+                         alt="مجله زیبایی صبا ریکو" title="آموزش آرایشگری">
+                </amp-img>
+            </h4>
+            <p>Content in section 1.</p>
+        </section>
+        <section>
+
+            <h4 class="menuHamberTitr">
+                <a href="{{ url('mainPageIndex') }}" title="صفحه اصلی مجله زیبایی صبا ریکو " class="text-light">
+                    صفحه اصلی
+                </a>
+            </h4>
+            <div>صفحه اصلی مجله زیبایی صبا ریکو</div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">مقالات پربازدید</h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for suggestedMenuArticle in suggestedMenuArticles  %}
+                    <li class="menuHamberLi">
+                        <a href="{{ url('ArticleDetails',{'id':suggestedMenuArticle.id,'slug':suggestedMenuArticle.urlSlug}) }}" title=" {{ suggestedMenuArticle.title }}" class="text-light" >
+                            {{ suggestedMenuArticle.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">آخرین مقالات </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for lastMenuArticle in lastMenuArticles  %}
+                    <li class="menuHamberLi">
+                        <a href="{{ url('ArticleDetails',{'id':lastMenuArticle.id,'slug':lastMenuArticle.urlSlug}) }}" title="  {{ lastMenuArticle.title }}" class="text-light" >
+                            {{ lastMenuArticle.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">آخرین خدمات </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for suggestedMenuService in suggestedMenuServices %}
+                    <li class="menuHamberLi">
+                        <a href="{{ url('ServiceDetailAction',{'id':suggestedMenuService.id,'slug':suggestedMenuService.urlSlug}) }}" title=" {{ suggestedMenuService.title }}" class="text-light" >
+                            {{ suggestedMenuService.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">اخبار پربازدید  </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for lastMenuNews in lastMenuNewses  %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('NewsDetailsIndex',{'id':lastMenuNews.id,'slug':lastMenuNews.urlSlug}) }}" title="{{ lastMenuNews.title }}" class="text-light" >
+                                {{ lastMenuNews.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">محصولات</h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for lastMenuProduct in lastMenuProducts  %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('ProductDetails',{'id':lastMenuProduct.id,'slug':lastMenuProduct.urlSlug}) }}" title="{{ lastMenuProduct.title }}" class="text-light" >
+                                {{ lastMenuProduct.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">آخرین مطالب</h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for lastMenuContent in lastMenuContents  %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('ContentDetails',{'id':lastMenuContent.id,'slug':lastMenuContent.urlSlug}) }}" title=" {{ lastMenuContent.title }}" class="text-light" >
+                                {{ lastMenuContent.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">فهرست مقالات </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for categoryMenuArticle in categoryMenuArticles %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('ArticleCategoryDetails',{'id':categoryMenuArticle.id,'slug':categoryMenuArticle.urlSlug}) }}" title="  {{ categoryMenuArticle.title }}" class="text-light" >
+                                {{ categoryMenuArticle.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">فهرست اخبار </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for categoryMenuNews in categoryMenuNewses %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('NewsCategoryDetails',{'id':categoryMenuNews.id,'slug':categoryMenuNews.urlSlug}) }}" title=" {{ categoryMenuNews.title }}" class="text-light" >
+                                {{ categoryMenuNews.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="menuHamberTitr">فهرست خدمات </h4>
+            <div>
+                <ul class="menuHamberUl">
+                    {% for categoryMenusService in categoryMenusServices %}
+                        <li class="menuHamberLi">
+                            <a href="{{ url('ServiceCategoryDetails',{'id':categoryMenusService.id,'slug':categoryMenusService.urlSlug}) }}" title="  {{ categoryMenusService.title }}" class="text-light" >
+                                {{ categoryMenusService.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </amp-accordion>
+</amp-sidebar>

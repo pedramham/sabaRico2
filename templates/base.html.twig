@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}کنترل پنل آرکا باتری{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ absolute_url( asset('admin/assets/css/bootstrap.css'))}}">
+        <link rel="stylesheet" href="{{ absolute_url( asset('admin/assets/js/morris/morris-0.4.3.min.css'))}}">
+        <link rel="stylesheet" href="{{ absolute_url( asset('admin/assets/css/custom.css'))}}?v=848545">
+        <link rel="stylesheet" href="{{ absolute_url( asset('assets/css/fontawesome/css/all.css'))}}?v=543">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+{% block body %}
+
+{% endblock %}
+{% block javascripts %}
+    <!-- JQUERY SCRIPTS -->
+
+    <script src="{{ absolute_url( asset('admin/assets/js/jquery-1.10.2.js'))}}"></script>
+    <script src="{{ absolute_url( asset('admin/assets/js/bootstrap.min.js'))}}"></script>
+    <script src="{{ absolute_url( asset('admin/assets/js/jquery.metisMenu.js'))}}"></script>
+    <script src="{{ absolute_url( asset('admin/assets/js/morris/raphael-2.1.0.min.js'))}}"></script>
+    <script src="{{ absolute_url( asset('admin/assets/js/jquery-1.10.2.js'))}}"></script>
+    <script src="{{ absolute_url( asset('admin/assets/js/morris/morris.js'))}}"></script>
+
+    <!-- BOOTSTRAP SCRIPTS -->
+
+
+{% endblock %}
+</body>
+</html>

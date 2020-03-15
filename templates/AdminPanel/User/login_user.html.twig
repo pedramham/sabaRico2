@@ -1,0 +1,83 @@
+{% extends "AdminPanel/Layouts/base.html.twig" %}
+
+{%block head %}
+{% endblock %}
+
+ {% block body %}
+     <body>
+     <div id="wrapper">
+         <!-- /. NAV SIDE  -->
+         <div id="page-wrapper" style="width:  100%;" >
+             <div id="page-inner">
+                 <!-- /. ROW  -->
+                 <hr />
+                 <div class=" directionrtl">
+                     <div class="col-lg-12">
+                         {% for message in app.flashes('success') %}
+                             <div class="alert alert-success alert-dismissible">
+                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                 <strong>پیام سیستم!</strong>  {{ message }}
+                             </div>
+                         {% endfor %}
+                     </div>
+                     <div class="row directionrtl">
+                         <div class="col-lg-1"></div>
+                         <div class="col-md-10">
+                             <!-- Form Elements -->
+                             <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                      فرم ورود
+                                 </div>
+                                 <div class="panel-body">
+                                     {% if error %}
+                                         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                     {% endif %}
+
+                                     <form action="{{ path('login') }}" method="post">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label for="password">رمز عبور:</label>
+                                                 <input class="form-control" type="password" id="password" name="_password" />
+                                             </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                         <label for="username">نام کاربری:</label>
+                                         <input class="form-control" type="text" id="userame" name="_username" value="{{ last_username }}" />
+                                             </div>
+                                         </div>
+
+                                         {#
+                                             If you want to control the URL the user
+                                             is redirected to on success (more details below)
+                                             <input type="hidden" name="_target_path" value="/account" />
+                                         #}
+                                         <input type="hidden" name="_csrf_token"
+                                                value="{{ csrf_token('authenticate') }}"
+                                         >
+                                         <input type="checkbox" id="remember_me" name="_remember_me" checked />
+                                         <label for="remember_me">   مرا به خاطر داشته باش</label>
+                                         <input type="hidden" name="_target_path" value="/admin_Cp/adminPanel/" />
+                                         <div class="col-md-3 pull-right">
+                                             <div class="form-group">
+                                         <button class="form-control btn btn-success" type="submit">ورود</button>
+                                             </div>
+                                         </div>
+                                     </form>
+                                 </div>
+                             </div>
+                             <!-- End Form Elements -->
+                         </div>
+                         <div class="col-lg-1"></div>
+                     </div>
+                     <!-- /. ROW  -->
+                     <!-- /. ROW  -->
+                 </div>
+                 <!-- /. PAGE INNER  -->
+             </div>
+             <!-- /. PAGE WRAPPER  -->
+         </div>
+
+     </body>
+     </html>
+ {% endblock %}

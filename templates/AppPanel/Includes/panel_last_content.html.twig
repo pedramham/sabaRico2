@@ -1,0 +1,86 @@
+<div class="img-background col-tablet" style="background-image: url({{ absolute_url(asset('uploads/mainpagepics/sabaRico-com-2020.webp'))}});background-repeat: no-repeat;"></div>
+
+<div class="row col-tablet">
+    <div class="container" style="position: relative">
+        <div class=" panelFixImage bg-black-450">
+            <div class="row alignItemsCenter ">
+                <div class="col-3 col-50  col-33-575 col-100-450 prl-5  text-right fontSize1em text-light">
+                    <div class="">
+                        <div class="col-12 boxPanelNews bg-navyBlue p-15">
+                            <div class="text-center">
+                                <h3 class="fontSize1em m-0">
+                                    <a href="" class="text-light">
+                                        <a href="{{ url('NewsList') }}" class="text-light" title="لیست اخبار">
+                                       آخرین اخبار
+                                        </a>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="fontSize09em lineHeight2em text-justify directionRtl">
+                                <ul style="margin-right: 0;padding-right: 15px;list-style-type: disclosure-closed;">
+                                    {% for lastPanelContentNewse in lastPanelContentNewses %}
+                                    <li>
+                                        <a href="{{ url('NewsDetailsIndex',{'id':lastPanelContentNewse.id,'slug':lastPanelContentNewse.urlSlug}) }}" title=" {{ lastPanelContentNewse.title }}" class="text-light">
+                                        {{ lastPanelContentNewse.name }}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 col-50  col-33-575 col-100-450 prl-5  text-right fontSize1em text-light">
+                    <div class="">
+                        <div class="col-12 boxPanelNews bg-red2 p-15">
+                            <div class="text-center">
+                                <h3 class="fontSize1em m-0">
+                                    <a href="{{ url('ContentDetails',{'id':lastContents.0.id,'slug':lastContents.0.id}) }}" class="text-light">
+                                        {{ lastContents.0.name }}
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="fontSize08em lineHeight2em text-justify directionRtl" style="border-right: 1px solid white;padding-right: 10px;">
+                                {{ lastContents.0.subject |striptags|raw|slice(0, 400)|raw}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 col-50  col-33-575 col-100-450 prl-5  text-right fontSize1em text-light">
+                    <div class="">
+                        <div class="col-12 boxPanelNews bg-navyBlue p-15">
+                            <div class="text-center">
+                                <h3 class="fontSize1em m-0">
+                                    <a href="" class="text-light">
+                                        <a href="{{ url('ArticleList') }}" class="text-light" title="لیست مقالات">
+                                        آخرین مقالات
+                                        </a>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="fontSize09em lineHeight2em text-justify directionRtl">
+                                <ul style="margin-right: 0;padding-right: 15px;list-style-type: disclosure-closed;">
+                                    {% for lastPanelContentArticle in lastPanelContentArticles %}
+                                        <li>
+                                            <a href="{{ url('ArticleDetails',{'id':lastPanelContentArticle.id,'slug':lastPanelContentArticle.urlSlug}) }}" title="{{ lastPanelContentArticle.title }}" class="text-light">
+                                                {% if lastPanelContentArticle.name |length < 29 %}
+                                                    {{ lastPanelContentArticle.name |striptags|raw}}
+                                                {% else %}
+                                                    {{ lastPanelContentArticle.name |slice(0,29)|striptags|raw }}..
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

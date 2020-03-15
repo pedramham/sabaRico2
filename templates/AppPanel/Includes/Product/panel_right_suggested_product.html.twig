@@ -1,0 +1,54 @@
+<div class="card border order-2-451 auto-flex flex-100-450 flex-30-451 mrl-10">
+    <div class="card-header bg-red2 fontSize09em">
+        <div class="d-flex  justify-content-between flexDirection alignItemsCenter">
+            <div class="mt--5">محصول پیشنهادی</div>
+            <div class="pt-4">
+                <svg width="20px" height="20px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+                    <title>38. Hearth</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="38.-Hearth" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+                        <g transform="translate(3.000000, 5.000000)" id="Layer-1" stroke="#EAE7DC" stroke-width="9">
+                            <path d="M0,28.4968421 C0,71.2421048 42.215625,90.24 48,90.24 C53.784375,90.24 96,71.2421048 96,28.4968421 C96,28.2459588 95.9824899,28.0047118 95.9481422,27.7728233 C95.9825427,27.2269576 96,26.6765487 96,26.1221053 C96,11.6952649 84.1803174,0 69.6,0 C60.6712427,0 52.7777636,4.3858941 48,11.0991442 C43.2222364,4.3858941 35.3287573,0 26.4,0 C11.8196826,0 0,11.6952649 0,26.1221053 C0,26.6770096 0.0174863673,27.2278728 0.0519436085,27.7741847 C0.0175367953,28.0057341 0,28.2465295 0,28.4968421 Z"></path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-body fontSize08em">
+        <a href="{{ url('ProductDetails',{'id':suggestedProduct.id,'slug':suggestedProduct.id}) }}" class="text-light imageEffectHover">
+        <amp-img
+                alt="{{ suggestedProduct.name }}"
+                title="{{ suggestedProduct.title }}"
+                src="{{ absolute_url(asset('uploads/product/'~ suggestedProduct.smallPic ))}}"
+                width="400" height="300"
+                layout="responsive"></amp-img>
+        </a>
+        <div class="p-10 text-justify directionRtl lineHeight19em">
+            <h3 class="fontSize1em m-0">
+                <a href="{{ url('ProductDetails',{'id':suggestedProduct.id,'slug':suggestedProduct.id}) }}" class="text-dark">
+                {{ suggestedProduct.name }}
+                </a>
+            </h3>
+            {{ suggestedProduct.subject |slice(0, 250)|striptags|raw}}
+        </div>
+        <div class="panelPriceProductList directionRtl">
+            <div class="panelPriceProductList ">
+                <div class="justify-content-between d-flex">
+                    <div>
+                        <span>قیمت :</span>
+                        <span class="panelPriceProduct">{{ suggestedProduct.price|discount(suggestedProduct.discount)|number_format }}</span>
+                    </div>
+                    <div>
+                        <span class="discountPrice">
+                          {{ suggestedProduct.price|number_format }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

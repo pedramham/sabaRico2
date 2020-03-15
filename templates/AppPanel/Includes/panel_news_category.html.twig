@@ -1,0 +1,113 @@
+<div class="newsPanelMain">
+    <div class="container">
+        <div class="row alignItemsCenter">
+            <div class="col-4 flex-90-575 col-100 flex-100-450 p-rl-15-450">
+                <div class="row">
+                    <div class="col-12 flex-90-768 col-90-450 col-50 border">
+                        <div class="p-15">
+                            <div class="d-flex  justify-content-end">
+                                <h2 class="fontSize12em m-0 directionRtl">
+                                    <a href="{{ url('NewsCategoryDetails',{'id':lastCatNews.0.id,'slug':lastCatNews.0.urlSlug}) }}" class="text-light">
+                                    {{ lastCatNews.0.name }}
+                                    </a>
+                                </h2>
+                                <svg class="pt-5" height="15px" width="15px" viewBox="0 0 48 48" enable-background="new 0 0 48 48">
+                                    <polygon fill="#2196F3" points="30.9,43 34,39.9 18.1,24 34,8.1 30.9,5 12,24"/>
+                                </svg>
+                            </div>
+                            <p class="fontSize09em lineHeight19em  text-justify directionRtl">
+                                <a href="{{ url('NewsCategoryDetails',{'id':lastCatNews.0.id,'slug':lastCatNews.0.urlSlug}) }}" class="text-light">
+                                {{ lastCatNews.0.subject |striptags|raw|slice(0, 200)|raw}}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 flex-90-768 col-90-450 col-50 mtt-15 border">
+                        <div class="p-15">
+                            <div class="d-flex  justify-content-end">
+                                <h2 class="fontSize12em m-0 text-light directionRtl">
+                                    <a href="{{ url('NewsCategoryDetails',{'id':lastCatNews.1.id,'slug':lastCatNews.1.urlSlug}) }}" class="text-light">
+                                    {{ lastCatNews.1.name }}
+                                    </a>
+                                </h2>
+                                <svg  class="pt-5" height="15px" width="15px" viewBox="0 0 48 48" enable-background="new 0 0 48 48">
+                                    <polygon fill="#2196F3"  points="30.9,43 34,39.9 18.1,24 34,8.1 30.9,5 12,24"/>
+                                </svg>
+                            </div>
+                            <p class="fontSize09em lineHeight19em text-light text-justify directionRtl">
+                                <a href="{{ url('NewsCategoryDetails',{'id':lastCatNews.1.id,'slug':lastCatNews.1.urlSlug}) }}" class="text-light">
+                                {{ lastCatNews.1.subject |striptags|raw|slice(0, 200)|raw}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-100 col-100-450 flex-90-575 flex-90-768  flex-100-450">
+                <div class="d-flex justify-content-center ">
+                    <div class="col-4 p-10 flex-50-top-p position-relative imageEffectHover">
+                        <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.0.id,'slug':lastNewses.0.urlSlug}) }}">
+                        <amp-img  layout="responsive"
+                                 aria-describedby="{{ lastNewses.0.subject|striptags|raw|slice(0, 150) }}"
+                                 alt="{{ lastNewses.0.name }}" title="{{ lastNewses.0.title }}"
+                                 src="{{ absolute_url(asset('uploads/articles/' ~  lastNewses.0.smallPic))}}" width="250" height="180"></amp-img>
+                        </a>
+
+                        <div class="robanTextImage roobanTextImageNews">
+                            <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.0.id,'slug':lastNewses.0.urlSlug}) }}" class="text-light">
+                                {{ lastNewses.0.name }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 p-10 flex-50-top-p position-relative imageEffectHover">
+                        <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.1.id,'slug':lastNewses.1.urlSlug}) }}">
+                        <amp-img  layout="responsive"
+                                  aria-describedby="{{ lastNewses.1.subject|striptags|raw|slice(0, 150) }}"
+                                  alt="{{ lastNewses.1.name }}" title="{{ lastNewses.1.title }}"
+                                  src="{{ absolute_url(asset('uploads/articles/' ~  lastNewses.1.smallPic))}}"
+                                  width="250" height="180"></amp-img>
+                        </a>
+                        <div class="robanTextImage roobanTextImageNews">
+                            <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.1.id,'slug':lastNewses.1.urlSlug}) }}" class="text-light">
+                                {{ lastNewses.1.name }}
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-center ">
+                    <div class="col-4 p-10 flex-50-top-p position-relative imageEffectHover">
+                        <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.2.id,'slug':lastNewses.2.urlSlug}) }}">
+                        <amp-img  layout="responsive"
+                                 aria-describedby="{{ lastNewses.2.subject|striptags|raw|slice(0, 150) }}"
+                                 alt="{{ lastNewses.2.name }}" title="{{ lastNewses.2.title }}"
+                                 src="{{ absolute_url(asset('uploads/articles/' ~  lastNewses.2.smallPic))}}"
+                                 width="250" height="180"></amp-img>
+                        </a>
+                        <div class="robanTextImage roobanTextImageNews">
+                            <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.2.id,'slug':lastNewses.2.urlSlug}) }}" class="text-light">
+                                {{ lastNewses.2.name }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 p-10 flex-50-top-p position-relative imageEffectHover">
+                        <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.3.id,'slug':lastNewses.3.urlSlug}) }}">
+                            <amp-img  layout="responsive"
+                                      aria-describedby="{{ lastNewses.3.subject|striptags|raw|slice(0, 150) }}"
+                                      alt="{{ lastNewses.3.name }}" title="{{ lastNewses.3.title }}"
+                                      src="{{ absolute_url(asset('uploads/articles/' ~  lastNewses.3.smallPic))}}" width="250" height="180">
+                            </amp-img>
+                        </a>
+                        <div class="robanTextImage roobanTextImageNews">
+                            <a href="{{ url('NewsDetailsIndex',{'id':lastNewses.3.id,'slug':lastNewses.3.urlSlug}) }}" class="text-light">
+                                {{ lastNewses.3.name }}
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
